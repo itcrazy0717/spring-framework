@@ -1850,7 +1850,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				return null;
 			}, getAccessControlContext());
 		} else {
-			//  非安全模式下激活Aware方法，对特殊bean处理：Aware、BeanClassLoaderAware、BeanFactoryAware
+			//  非安全模式下激活Aware方法，对特殊bean处理：BeanAware、BeanClassLoaderAware、BeanFactoryAware
 			invokeAwareMethods(beanName, bean);
 		}
 

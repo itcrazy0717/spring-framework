@@ -1,14 +1,21 @@
 package com.dev.basebean.ioc;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author: Shawn Chen
  * @date: 2018/6/6
  * @description: ioc 测试bean
  */
-@Repository
-public class AnnotationIocTestBean {
+@Component
+public class AnnotationIocBean {
+
+	/**
+	 * 测试@Autowired自动注入属性
+	 */
+	@Autowired
+	private AnnotationService annotationService;
 
 	private String name;
 
@@ -16,16 +23,16 @@ public class AnnotationIocTestBean {
 
 	private String placeHolderValue;
 
+	public void sayHello() {
+		System.out.println("Hello Aop");
+	}
+
 	public void setPlaceHolderValue(String placeHolderValue) {
 		this.placeHolderValue = placeHolderValue;
 	}
 
 	public String getPlaceHolderValue() {
 		return placeHolderValue;
-	}
-
-	public void sayHello() {
-		System.out.println("Hello Aop");
 	}
 
 	public String getName() {

@@ -4,13 +4,14 @@ package com.dev.ioc;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.dev.basebean.aware.UserDefinedAware;
 import com.dev.basebean.beanpostprocessor.BeanPostProcessorBase;
 import com.dev.basebean.circledepend.setter.SetterCircleDependA;
 import com.dev.basebean.initializingbean.UserDefinedInitializingBean;
-import com.dev.basebean.ioc.AnnotationIocTestBean;
+import com.dev.basebean.ioc.AnnotationIocBean;
 import com.dev.basebean.ioc.IocTestBean;
 import com.dev.basebean.lifecycle.BeanLifeCycle;
 import com.dev.basebean.lookupmethod.impl.ShowCar;
@@ -56,11 +57,13 @@ public class IOCTest {
 
 		System.out.println("注解形式注入bean调试过程开始");
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/dev/config/ioc/annotation_ioc.xml");
+		ApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.ioc");
 
-		AnnotationIocTestBean annotationIocTestBean = context.getBean(AnnotationIocTestBean.class);
+		AnnotationIocBean annotationIocTestBean = context.getBean(AnnotationIocBean.class);
 
 		annotationIocTestBean.sayHello();
+
+		System.out.println(annotationIocTestBean.getClass());
 
 		System.out.println("注解形式注入bean调试过程结束");
 	}

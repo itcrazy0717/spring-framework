@@ -631,6 +631,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			}
 			if (value != null) {
 				ReflectionUtils.makeAccessible(field);
+				// 属性自动注入的最终点 通过@Autowired进行属性注入
 				field.set(bean, value);
 			}
 		}
