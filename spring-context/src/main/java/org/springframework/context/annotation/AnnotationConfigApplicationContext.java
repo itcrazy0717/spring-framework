@@ -63,7 +63,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		// 创建AnnotatedBeanDefinitionReader
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		// 创建ClassPathBeanDefinitionScanner
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 

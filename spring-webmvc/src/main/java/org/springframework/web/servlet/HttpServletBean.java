@@ -175,7 +175,7 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 				 *         <param-value>/WEB-INF/spring-servlet.xml</param-value>
 				 *  </init-param>
 				 */
-				// 在设置属性的是否会将contextConfigLocation属性，通过反射设置到contextConfigLocation属性上
+				// 在设置属性的时候会将contextConfigLocation属性，通过反射设置到contextConfigLocation属性上
 				// 这里有点绕，需要通过debug深入查看
 				bw.setPropertyValues(pvs, true);
 			}
