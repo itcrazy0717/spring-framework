@@ -82,7 +82,7 @@ public abstract class AbstractBeanDefinitionParser implements BeanDefinitionPars
 				}
 				// 创建BeanDefinitionHolder对象
 				BeanDefinitionHolder holder = new BeanDefinitionHolder(definition, id, aliases);
-				// 注册BeanDefinitionHolder
+				// 注册BeanDefinitionHolder 其实就是注册某个标签的解析器
 				registerBeanDefinition(holder, parserContext.getRegistry());
 				// 触发事件
 				if (shouldFireEvents()) {

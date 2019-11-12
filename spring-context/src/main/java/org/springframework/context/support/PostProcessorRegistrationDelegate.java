@@ -171,6 +171,7 @@ final class PostProcessorRegistrationDelegate {
 			if (processedBeans.contains(ppName)) {
 				// skip - already processed in first phase above
 			} else if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) { // PriorityOrdered
+				// 注意这里会进行bean的初始化，如果存在属性也会依赖注入
 				priorityOrderedPostProcessors.add(beanFactory.getBean(ppName, BeanFactoryPostProcessor.class));
 			} else if (beanFactory.isTypeMatch(ppName, Ordered.class)) {  // Ordered
 				orderedPostProcessorNames.add(ppName);

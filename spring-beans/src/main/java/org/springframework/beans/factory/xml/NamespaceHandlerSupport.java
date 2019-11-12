@@ -84,7 +84,8 @@ public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 	private BeanDefinitionParser findParserForElement(Element element, ParserContext parserContext) {
 		// 获得元素名
 		String localName = parserContext.getDelegate().getLocalName(element);
-		// 获得BeanDefinitionParser对象
+		// 获得BeanDefinitionParser对象 
+		// 在初始化命名空间解析器的时候，会将每个解析器涉及到的parser存储在parsers集合中
 		BeanDefinitionParser parser = this.parsers.get(localName);
 		// 如果BeanDefinitionParser解析器为空，则报错
 		if (parser == null) {

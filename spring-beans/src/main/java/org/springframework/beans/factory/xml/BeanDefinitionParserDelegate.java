@@ -613,6 +613,7 @@ public class BeanDefinitionParserDelegate {
 			lazyInit = this.defaults.getLazyInit();
 		}
 		// 这里设置lazy-init属性，如果不指定lazy-init则，默认就为false，因为这里进行了一个比较
+		// 从这里可以看出spring中默认bean不是延迟加载的lazy-init默认为false
 		bd.setLazyInit(TRUE_VALUE.equals(lazyInit));
 
 		// 解析autowire属性
@@ -1525,7 +1526,7 @@ public class BeanDefinitionParserDelegate {
 			// 通过命名空间获取对应的空间处理器
 			NamespaceHandler handler = this.readerContext.getNamespaceHandlerResolver().resolve(namespaceUri);
 			if (handler != null) {
-				// 进行装饰处理 在SimplePropertyNamespaceHandler处理器中
+				// 进行装饰处理 在对应的标签处理器中进行处理
 				BeanDefinitionHolder decorated =
 						handler.decorate(node, originalDef, new ParserContext(this.readerContext, this, containingBd));
 				if (decorated != null) {

@@ -378,7 +378,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			// 进行标签处理，主要对bean标签的子节点属性进行处理 如： p:name="测试用例"
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
-				// 注册BeanDefinition
+				// 将解析装配好的BeanDefinition注册到IOC容器中
 				// Register the final decorated instance.
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			} catch (BeanDefinitionStoreException ex) {
