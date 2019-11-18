@@ -419,6 +419,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
 		Set<BeanDefinition> candidates = new LinkedHashSet<>();
 		try {
+			// 构建扫描路径 把包的"." 替换成"/"，并拼接成"**/*.class"形式
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
 					resolveBasePackage(basePackage) + '/' + this.resourcePattern;
 			// 将basePackage包下的类文件读取出来，封装成Resource对象

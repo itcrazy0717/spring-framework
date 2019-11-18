@@ -356,7 +356,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		if (path.startsWith("/")) {
 			path = path.substring(1);
 		}
-		// 真正加载location下所有classpath下的资源
+		// 寻找指定路径下的资源
 		Set<Resource> result = doFindAllClassPathResources(path);
 		if (logger.isDebugEnabled()) {
 			logger.debug("Resolved classpath location [" + location + "] to resources " + result);
@@ -381,7 +381,6 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		// 否则调用ClassLoader的getSystemResources方法
 		Enumeration<URL> resourceUrls = (cl != null ? cl.getResources(path) : ClassLoader.getSystemResources(path));
 		// 遍历集合将集合转换成UrlResource形式
-		// 如果path为空，这里就会返回项目中classes的路径，通过addAllClassLoaderJarRoots方法进行加载
 		while (resourceUrls.hasMoreElements()) {
 			URL url = resourceUrls.nextElement();
 			result.add(convertClassLoaderURL(url));
@@ -540,7 +539,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		// 确定根路径与子路径
 		String rootDirPath = determineRootDir(locationPattern);
 		String subPattern = locationPattern.substring(rootDirPath.length());
-		// 得到根路径下的资源
+		// 得到根路径下的资源 
 		Resource[] rootDirResources = getResources(rootDirPath);
 		Set<Resource> result = new LinkedHashSet<>(16);
 		// 遍历获取资源
@@ -564,6 +563,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 				result.addAll(doFindPathMatchingJarResources(rootDirResource, rootDirUrl, subPattern));
 			// 其他类型资源
 			} else {
+				// doFindPathMatchingFileResources通过路径获取所有的文件
 				result.addAll(doFindPathMatchingFileResources(rootDirResource, subPattern));
 			}
 		}
