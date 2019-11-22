@@ -500,8 +500,9 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			}
 		}
 		for (TypeFilter tf : this.includeFilters) {
-            // 判断当前metadataReader的类型是否匹配
+            // 判断是否匹配默认的注解@Component
 			if (tf.match(metadataReader, getMetadataReaderFactory())) {
+				// 判断是否有@Conditional注解
 				return isConditionMatch(metadataReader);
 			}
 		}
