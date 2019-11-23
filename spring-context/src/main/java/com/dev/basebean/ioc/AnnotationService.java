@@ -9,4 +9,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AnnotationService {
+
+	public void printMsg() {
+		System.out.println("this is annotation class");
+	}
 }

@@ -54,4 +54,8 @@ public class AnnotationIocBean {
 	public void initMethod() {
 		System.out.println("Enter IocTestBean.initMethod()");
 	}
+
+	public void annotationTest() {
+		annotationService.printMsg();
+	}
 }
