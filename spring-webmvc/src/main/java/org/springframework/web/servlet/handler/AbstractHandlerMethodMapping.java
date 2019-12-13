@@ -259,7 +259,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				logger.trace("Could not resolve type for bean '" + beanName + "'", ex);
 			}
 		}
-		// 判断bean是否为处理器，如果是，则扫描处理器方法
+		// 判断bean是否为有@Controller注解或@RequestMapping注解，如果有，则扫描处理器方法
 		if (beanType != null && isHandler(beanType)) {
 			detectHandlerMethods(beanName);
 		}
