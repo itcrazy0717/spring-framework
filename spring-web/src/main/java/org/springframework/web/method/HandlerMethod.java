@@ -215,6 +215,7 @@ public class HandlerMethod {
 		MethodParameter[] result = new MethodParameter[count];
 		// 遍历 逐个解析参数类型
 		for (int i = 0; i < count; i++) {
+			// 在创建HandlerMethodParameter对象的时候设置parameterIndex的值，在后期进行参数绑定的时候，就可以直接对应上逻辑关系了
 			HandlerMethodParameter parameter = new HandlerMethodParameter(i);
 			GenericTypeResolver.resolveParameterType(parameter, this.beanType);
 			result[i] = parameter;

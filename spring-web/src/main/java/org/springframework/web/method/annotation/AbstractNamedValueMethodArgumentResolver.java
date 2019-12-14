@@ -105,7 +105,7 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 			throw new IllegalArgumentException(
 					"Specified name must not resolve to null: [" + namedValueInfo.name + "]");
 		}
-        // 解析name对应值
+        // 解析name对应值，进行参数的绑定
 		Object arg = resolveName(resolvedName.toString(), nestedParameter, webRequest);
 		// 如果arg不存在，则使用默认值
 		if (arg == null) {

@@ -49,7 +49,8 @@ public class SpringMVCTest {
 	@Test
 	public void controllerWithOutRequestParamTest() throws ServletException, IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get-with-out-param");
-		request.setParameter("input", "hello sping mvc");
+		request.setParameter("inputA", "hello sping mvc");
+		request.setParameter("inputB", " two paramters");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
 		Assert.assertEquals("hello sping mvc", response.getContentAsString());

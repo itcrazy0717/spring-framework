@@ -155,7 +155,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 		MethodParameter[] parameters = getMethodParameters();
 		// 解析后的参数结果数组
 		Object[] args = new Object[parameters.length];
-		// 遍历开始解析
+		// 循环解析入参，进行参数绑定
 		for (int i = 0; i < parameters.length; i++) {
 			// 获得当前遍历的MethodParameter对象
 			MethodParameter parameter = parameters[i];
@@ -170,7 +170,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 				throw new IllegalStateException(formatArgumentError(parameter, "No suitable resolver"));
 			}
 			try {
-				// 执行解析
+				// 具体执行解析获取入参的值
 				args[i] = this.resolvers.resolveArgument(parameter, mavContainer, request, this.dataBinderFactory);
 			}
 			catch (Exception ex) {

@@ -18,12 +18,13 @@ public class TestController {
 	/**
 	 * Controller上不带@RequestParam注解
 	 *
-	 * @param input
+	 * @param inputA
+	 * @param inputB
 	 * @return
 	 */
 	@PostMapping(value = "/get-with-out-param")
-	public String getMsgWithoutParam(String input) {
-		return input;
+	public String getMsgWithoutParam(String inputA, String inputB) {
+		return inputA + inputB;
 	}
 
 	/**

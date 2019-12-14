@@ -202,7 +202,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	@Override
 	public void afterPropertiesSet() {
-		// 初始化处理器的方法
+		// 该方法会对Controller对象中请求以及参数进行解析
 		initHandlerMethods();
 	}
 
