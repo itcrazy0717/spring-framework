@@ -39,11 +39,13 @@ package org.springframework.core;
 public class DefaultParameterNameDiscoverer extends PrioritizedParameterNameDiscoverer {
 
 	public DefaultParameterNameDiscoverer() {
+		// 构造函数中会加入三个参数的解析器
 		if (!GraalDetector.inImageCode()) {
 			if (KotlinDetector.isKotlinReflectPresent()) {
 				addDiscoverer(new KotlinReflectionParameterNameDiscoverer());
 			}
 			addDiscoverer(new StandardReflectionParameterNameDiscoverer());
+			// 从文件流中对参数进行解析
 			addDiscoverer(new LocalVariableTableParameterNameDiscoverer());
 		}
 	}

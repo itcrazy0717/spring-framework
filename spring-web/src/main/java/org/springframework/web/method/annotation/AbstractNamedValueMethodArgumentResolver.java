@@ -156,7 +156,7 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 		if (namedValueInfo == null) {
 			// 缓存中没有，则创建NamedValueInfo对象
 			namedValueInfo = createNamedValueInfo(parameter);
-			// 更新NamedValueInfo
+			// 更新NamedValueInfo 该函数中如果未加@RequestParam注解，则会从文件上读取参数值
 			namedValueInfo = updateNamedValueInfo(parameter, namedValueInfo);
 			// 添加到缓存中
 			this.namedValueInfoCache.put(parameter, namedValueInfo);
@@ -177,8 +177,9 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 	 */
 	private NamedValueInfo updateNamedValueInfo(MethodParameter parameter, NamedValueInfo info) {
 		String name = info.name;
+		// 如果@RequestParam的name为空，则直接使用参数名，所以在Controller中可以不添加该注解
 		if (info.name.isEmpty()) {
-			// 如果@RequestParam的name为空，则直接使用参数名，所以在Controller中可以不添加该注解
+			// 在此处进行参数的解析，从文件中读取
 			name = parameter.getParameterName();
 			// 如果name为空，则抛出异常
 			if (name == null) {

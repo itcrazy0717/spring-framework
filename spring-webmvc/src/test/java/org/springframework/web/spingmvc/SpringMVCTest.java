@@ -19,7 +19,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @date: 2019-06-21 10:16
  * @description: spring mvc 单元测试
  */
-public class SpingMVCTest {
+public class SpringMVCTest {
 
 	private DispatcherServlet dispatcherServlet;
 
@@ -32,11 +32,23 @@ public class SpingMVCTest {
 	}
 
 	/**
-	 * Controller流程测试
+	 * Controller流程测试 带有@RequestParam注解
 	 */
 	@Test
-	public void controllerTest() throws ServletException, IOException {
+	public void controllerRequestParamTest() throws ServletException, IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get");
+		request.setParameter("input", "hello sping mvc");
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		dispatcherServlet.service(request, response);
+		Assert.assertEquals("hello sping mvc", response.getContentAsString());
+	}
+
+	/**
+	 * Controller流程测试 不带@RequestParam注解
+	 */
+	@Test
+	public void controllerWithOutRequestParamTest() throws ServletException, IOException {
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get-with-out-param");
 		request.setParameter("input", "hello sping mvc");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
