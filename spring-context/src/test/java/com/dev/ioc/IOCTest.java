@@ -15,6 +15,7 @@ import com.dev.basebean.ioc.AnnotationIocBean;
 import com.dev.basebean.ioc.IocTestBean;
 import com.dev.basebean.lifecycle.BeanLifeCycle;
 import com.dev.basebean.lookupmethod.impl.ShowCar;
+import com.dev.config.DevConfig;
 
 
 /**
@@ -60,7 +61,7 @@ public class IOCTest {
 		// 不要有误解
 		ApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.ioc");
 		// ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/dev/config/ioc/annotation_ioc.xml");
- 
+
 		AnnotationIocBean annotationIocTestBean = context.getBean(AnnotationIocBean.class);
 
 		annotationIocTestBean.sayHello();
@@ -69,6 +70,23 @@ public class IOCTest {
 		System.out.println(annotationIocTestBean.getClass());
 
 		System.out.println("注解形式注入bean调试过程结束");
+	}
+
+	/**
+	 * 声明式注解形式注入bean
+	 */
+	@Test
+	public void annotationConfigIOCTest() {
+		System.out.println("注解@Configuration解析调试过程开始");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DevConfig.class);
+		IocTestBean iocTestBean = context.getBean(IocTestBean.class);
+		String[] beanNames = context.getBeanNamesForType(IocTestBean.class);
+		for (String beanName : beanNames) {
+			// 从打印值可以看出，beanName为方法名的首字母小写 使用@Bean注解默认的beanName: iocTestBean
+			System.out.println("使用@Bean注解默认的beanName: " + beanName);
+		}
+		iocTestBean.sayHello();
+		System.out.println("注解@Configuration解析调试过程开始");
 	}
 
 	/**

@@ -164,7 +164,9 @@ class ConfigurationClassParser {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
+				// 根据不同的类型进行解析
 				if (bd instanceof AnnotatedBeanDefinition) {
+				    // @Configuration注解会走该分支
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
@@ -197,6 +199,7 @@ class ConfigurationClassParser {
 	}
 
 	protected final void parse(AnnotationMetadata metadata, String beanName) throws IOException {
+		// 解析@Configuration的对象
 		processConfigurationClass(new ConfigurationClass(metadata, beanName));
 	}
 
@@ -238,12 +241,14 @@ class ConfigurationClassParser {
 		}
 
 		// Recursively process the configuration class and its superclass hierarchy.
+		// 将对象信息封装成SourceClass对象
 		SourceClass sourceClass = asSourceClass(configClass);
 		do {
+			// 进行具体解析操作
 			sourceClass = doProcessConfigurationClass(configClass, sourceClass);
 		}
 		while (sourceClass != null);
-
+        // 将解析的数据存储在configurationClasses集合中
 		this.configurationClasses.put(configClass, configClass);
 	}
 
@@ -258,13 +263,16 @@ class ConfigurationClassParser {
 	@Nullable
 	protected final SourceClass doProcessConfigurationClass(ConfigurationClass configClass, SourceClass sourceClass)
 			throws IOException {
-
+        // 该方法其实就是对各种注解的处理操作
+		
+		// 处理@Component注解 注意@Configuration注解其实就是@Component注解
 		if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
 			// Recursively process any member (nested) classes first
 			processMemberClasses(configClass, sourceClass);
 		}
 
 		// Process any @PropertySource annotations
+		// 对@PropertySource注解进行处理
 		for (AnnotationAttributes propertySource : AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), PropertySources.class,
 				org.springframework.context.annotation.PropertySource.class)) {
@@ -278,6 +286,7 @@ class ConfigurationClassParser {
 		}
 
 		// Process any @ComponentScan annotations
+		// 对@ComponentScans注解进行处理
 		Set<AnnotationAttributes> componentScans = AnnotationConfigUtils.attributesForRepeatable(
 				sourceClass.getMetadata(), ComponentScans.class, ComponentScan.class);
 		if (!componentScans.isEmpty() &&
@@ -300,9 +309,11 @@ class ConfigurationClassParser {
 		}
 
 		// Process any @Import annotations
+		// 对@Import注解进行处理 
 		processImports(configClass, sourceClass, getImports(sourceClass), true);
 
 		// Process any @ImportResource annotations
+		// 对@ImportResource注解进行处理 
 		AnnotationAttributes importResource =
 				AnnotationConfigUtils.attributesFor(sourceClass.getMetadata(), ImportResource.class);
 		if (importResource != null) {
@@ -313,8 +324,9 @@ class ConfigurationClassParser {
 				configClass.addImportedResource(resolvedResource, readerClass);
 			}
 		}
-
+        
 		// Process individual @Bean methods
+		// 注意，这里就是对@Bean注解进行处理，敲重点，通过retrieveBeanMethodMetadata方法获取含有@Bean注解的元数据信息
 		Set<MethodMetadata> beanMethods = retrieveBeanMethodMetadata(sourceClass);
 		for (MethodMetadata methodMetadata : beanMethods) {
 			configClass.addBeanMethod(new BeanMethod(methodMetadata, configClass));

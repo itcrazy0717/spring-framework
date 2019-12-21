@@ -583,6 +583,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 				// Invoke factory processors registered as beans in the context.
 				// 激活各种BeanFactory处理器，比如配置文件中占位符的赋值就是在此步骤中进行
+				// @Configuration注解的解析就是在此步骤中进行的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.

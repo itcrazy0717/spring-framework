@@ -58,6 +58,9 @@ final class ConfigurationClass {
 
 	private final Set<ConfigurationClass> importedBy = new LinkedHashSet<>(1);
 
+	/**
+	 * 存储带有@Bean注解的对象方法
+	 */
 	private final Set<BeanMethod> beanMethods = new LinkedHashSet<>();
 
 	private final Map<String, Class<? extends BeanDefinitionReader>> importedResources =

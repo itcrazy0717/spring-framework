@@ -136,10 +136,11 @@ class ConfigurationClassBeanDefinitionReader {
 			this.importRegistry.removeImportingClass(configClass.getMetadata().getClassName());
 			return;
 		}
-
+        // 含有@import注解的导入
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
+		// 从@Bean注解的方法中导入
 		for (BeanMethod beanMethod : configClass.getBeanMethods()) {
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}
@@ -188,7 +189,7 @@ class ConfigurationClassBeanDefinitionReader {
 		if (configClass.skippedBeanMethods.contains(methodName)) {
 			return;
 		}
-
+        // 获取@Bean注解的属性
 		AnnotationAttributes bean = AnnotationConfigUtils.attributesFor(metadata, Bean.class);
 		Assert.state(bean != null, "No @Bean annotation attributes");
 
@@ -197,6 +198,7 @@ class ConfigurationClassBeanDefinitionReader {
 		String beanName = (!names.isEmpty() ? names.remove(0) : methodName);
 
 		// Register aliases even when overridden
+		// 是否有别名
 		for (String alias : names) {
 			this.registry.registerAlias(beanName, alias);
 		}
@@ -214,7 +216,8 @@ class ConfigurationClassBeanDefinitionReader {
 		ConfigurationClassBeanDefinition beanDef = new ConfigurationClassBeanDefinition(configClass, metadata);
 		beanDef.setResource(configClass.getResource());
 		beanDef.setSource(this.sourceExtractor.extractSource(metadata, configClass.getResource()));
-
+        
+		// 是否有静态方法
 		if (metadata.isStatic()) {
 			// static @Bean method
 			if (configClass.getMetadata() instanceof StandardAnnotationMetadata) {
@@ -227,6 +230,7 @@ class ConfigurationClassBeanDefinitionReader {
 		}
 		else {
 			// instance @Bean method
+			// 设置BeanDefinition的工厂方法名
 			beanDef.setFactoryBeanName(configClass.getBeanName());
 			beanDef.setUniqueFactoryMethodName(methodName);
 		}
@@ -234,7 +238,7 @@ class ConfigurationClassBeanDefinitionReader {
 		if (metadata instanceof StandardMethodMetadata) {
 			beanDef.setResolvedFactoryMethod(((StandardMethodMetadata) metadata).getIntrospectedMethod());
 		}
-
+        // 下面就是对一些属性的解析，大体了解下就可以了
 		beanDef.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_CONSTRUCTOR);
 		beanDef.setAttribute(org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor.
 				SKIP_REQUIRED_CHECK_ATTRIBUTE, Boolean.TRUE);
@@ -284,6 +288,7 @@ class ConfigurationClassBeanDefinitionReader {
 			logger.trace(String.format("Registering bean definition for @Bean method %s.%s()",
 					configClass.getMetadata().getClassName(), beanName));
 		}
+		// 向容器中注入BeanDefinition
 		this.registry.registerBeanDefinition(beanName, beanDefToRegister);
 	}
 
