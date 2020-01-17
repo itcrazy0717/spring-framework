@@ -79,6 +79,9 @@ public class IOCTest {
 	public void annotationConfigIOCTest() {
 		System.out.println("注解@Configuration解析调试过程开始");
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DevConfig.class);
+		DevConfig configBean = context.getBean(DevConfig.class);
+		System.out.println();
+		System.out.println("@Configuration class:" + configBean.getClass());
 		IocTestBean iocTestBean = context.getBean(IocTestBean.class);
 		String[] beanNames = context.getBeanNamesForType(IocTestBean.class);
 		for (String beanName : beanNames) {
