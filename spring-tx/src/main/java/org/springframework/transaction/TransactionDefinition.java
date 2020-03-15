@@ -44,7 +44,7 @@ import org.springframework.lang.Nullable;
 // 事务定义接口
 public interface TransactionDefinition {
 
-	// 7中事务传播类型
+	// 7种事务传播类型
 	/**
 	 * Support a current transaction; create a new one if none exists.
 	 * Analogous to the EJB transaction attribute of the same name.
