@@ -1092,6 +1092,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 				// Determine handler for the current request.
 				// 获取可处理当前请求的处理器Handler
+				// Handler其实就是处理方法
 				mappedHandler = getHandler(processedRequest);
 				if (mappedHandler == null) {
 					// 404请求就是在这里进行处理的
@@ -1100,7 +1101,8 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// Determine handler adapter for the current request.
-				// 获取可执行处理器逻辑的适配器HandlerAdapter
+				// 获取可执行处理器逻辑的适配器HandlerAdapter 
+				// 一般会得到RequestMappingHandlerAdapter
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
 				// Process last-modified header, if supported by the handler.
@@ -1121,6 +1123,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 				// Actually invoke the handler.
 				// 调用处理器逻辑 真正的调用handler，并返回视图，这里会调用我们定义的Controller方法
+				// 由RequestMappingHandlerAdapter
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1360,7 +1363,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * @throws ServletException if no HandlerAdapter can be found for the handler. This is a fatal error.
 	 */
 	protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletException {
-		// 遍历HandlerAdapter数组
+		// 遍历HandlerAdapter数组 在initStrategies中进行注入
 		if (this.handlerAdapters != null) {
 			for (HandlerAdapter adapter : this.handlerAdapters) {
 				// 判断是否支持当前处理器

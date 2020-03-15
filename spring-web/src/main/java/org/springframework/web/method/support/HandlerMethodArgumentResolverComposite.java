@@ -142,7 +142,7 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 		if (result == null) {
 			// 缓存中获取不到，则遍历argumentResolvers数组
 			for (HandlerMethodArgumentResolver methodArgumentResolver : this.argumentResolvers) {
-				// 如果支持，则添加到缓存中
+				// 寻找对应的MethodArgumentResolver
 				if (methodArgumentResolver.supportsParameter(parameter)) {
 					result = methodArgumentResolver;
 					this.argumentResolverCache.put(parameter, result);

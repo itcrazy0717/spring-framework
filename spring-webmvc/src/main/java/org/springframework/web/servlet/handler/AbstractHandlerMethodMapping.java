@@ -292,7 +292,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			if (logger.isTraceEnabled()) {
 				logger.trace(formatMappings(userType, methods));
 			}
-			// 遍历方法，逐个注册HandlerMethod
+			// 遍历方法，逐个注册HandlerMethod 
+			// 这里就会将Controller方法中的入参进行进行排序，为后续参数绑定做准备
 			methods.forEach((method, mapping) -> {
 				Method invocableMethod = AopUtils.selectInvocableMethod(method, userType);
 				registerHandlerMethod(handler, invocableMethod, mapping);
