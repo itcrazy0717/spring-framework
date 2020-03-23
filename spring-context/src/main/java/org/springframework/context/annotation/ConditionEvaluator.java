@@ -39,6 +39,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * 对Conditional的内容进行评估，判断是否要进行对象的自动装配，spring boot中使用很多
  * Internal class used to evaluate {@link Conditional} annotations.
  *
  * @author Phillip Webb
@@ -78,6 +79,7 @@ class ConditionEvaluator {
 	 * @return if the item should be skipped
 	 */
 	public boolean shouldSkip(@Nullable AnnotatedTypeMetadata metadata, @Nullable ConfigurationPhase phase) {
+		// 如果metadata为null或者没有@Conditional注解，则直接返回false，表示直接跳过该对象
 		if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {
 			return false;
 		}
@@ -85,12 +87,15 @@ class ConditionEvaluator {
 		if (phase == null) {
 			if (metadata instanceof AnnotationMetadata &&
 					ConfigurationClassUtils.isConfigurationCandidate((AnnotationMetadata) metadata)) {
+				// 对象应该被解析当时还是要进行条件的判断
 				return shouldSkip(metadata, ConfigurationPhase.PARSE_CONFIGURATION);
 			}
+			// 对象应该被注册
 			return shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN);
 		}
 
 		List<Condition> conditions = new ArrayList<>();
+		// 遍历注解上的内容，装填类对象
 		for (String[] conditionClasses : getConditionClasses(metadata)) {
 			for (String conditionClass : conditionClasses) {
 				Condition condition = getCondition(conditionClass, this.context.getClassLoader());
@@ -98,6 +103,7 @@ class ConditionEvaluator {
 			}
 		}
 
+		// 排序
 		AnnotationAwareOrderComparator.sort(conditions);
 
 		for (Condition condition : conditions) {
@@ -105,6 +111,7 @@ class ConditionEvaluator {
 			if (condition instanceof ConfigurationCondition) {
 				requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase();
 			}
+			// 通过matches来判断是否应该跳过，也就是不需要自动装配，spring-boot中会走SpringBootCondition对象
 			if ((requiredPhase == null || requiredPhase == phase) && !condition.matches(this.context, metadata)) {
 				return true;
 			}
