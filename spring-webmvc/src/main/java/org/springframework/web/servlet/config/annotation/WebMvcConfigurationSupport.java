@@ -414,6 +414,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	}
 
 	protected Map<String, MediaType> getDefaultMediaTypes() {
+		// 这里添加默认的MediaType
 		Map<String, MediaType> map = new HashMap<>(4);
 		if (romePresent) {
 			map.put("atom", MediaType.APPLICATION_ATOM_XML);
@@ -573,8 +574,12 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	 */
 	@Bean
 	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
+		// spring-boot中加载RequestMappingHandlerAdapter会进入该函数
+		// 创建RequestMappingHandlerAdapter
 		RequestMappingHandlerAdapter adapter = createRequestMappingHandlerAdapter();
+		// 内容协调转换器
 		adapter.setContentNegotiationManager(mvcContentNegotiationManager());
+		// 设置messageConverter
 		adapter.setMessageConverters(getMessageConverters());
 		adapter.setWebBindingInitializer(getConfigurableWebBindingInitializer());
 		adapter.setCustomArgumentResolvers(getArgumentResolvers());
@@ -764,6 +769,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 			this.messageConverters = new ArrayList<>();
 			configureMessageConverters(this.messageConverters);
 			if (this.messageConverters.isEmpty()) {
+				// 添加默认MessageConverter
 				addDefaultHttpMessageConverters(this.messageConverters);
 			}
 			extendMessageConverters(this.messageConverters);
@@ -816,12 +822,14 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 			// Ignore when no TransformerFactory implementation is available...
 		}
 		messageConverters.add(new AllEncompassingFormHttpMessageConverter());
-
+         
+		// 通过判断对象是否存在，添加对应messageConverter
 		if (romePresent) {
 			messageConverters.add(new AtomFeedHttpMessageConverter());
 			messageConverters.add(new RssChannelHttpMessageConverter());
 		}
-
+        
+		// xml类型的转换器
 		if (jackson2XmlPresent) {
 			Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.xml();
 			if (this.applicationContext != null) {
@@ -831,7 +839,8 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 		} else if (jaxb2Present) {
 			messageConverters.add(new Jaxb2RootElementHttpMessageConverter());
 		}
-
+        
+		// json类型的转换器
 		if (jackson2Present) {
 			Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.json();
 			if (this.applicationContext != null) {

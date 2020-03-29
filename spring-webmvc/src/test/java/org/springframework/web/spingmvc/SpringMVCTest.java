@@ -53,7 +53,7 @@ public class SpringMVCTest {
 		request.setParameter("inputB", " two paramters");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
-		Assert.assertEquals("hello sping mvc", response.getContentAsString());
+		Assert.assertEquals("hello sping mvc two paramters", response.getContentAsString());
 	}
 
 	/**

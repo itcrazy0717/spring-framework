@@ -35,6 +35,7 @@ import org.springframework.lang.Nullable;
 public interface HttpMessageConverter<T> {
 
 	/**
+	 * 表示是否可以通过converter从请求中读取相应对象，简单理解就是从客户端读取相应对象<br/>
 	 * Indicates whether the given class can be read by this converter.
 	 * @param clazz the class to test for readability
 	 * @param mediaType the media type to read (can be {@code null} if not specified);
@@ -44,6 +45,7 @@ public interface HttpMessageConverter<T> {
 	boolean canRead(Class<?> clazz, @Nullable MediaType mediaType);
 
 	/**
+	 * 表示是否可以通过converter像响应中写一个对象，简单理解就是处理后的返回值写回客户端
 	 * Indicates whether the given class can be written by this converter.
 	 * @param clazz the class to test for writability
 	 * @param mediaType the media type to write (can be {@code null} if not specified);
