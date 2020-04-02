@@ -1,10 +1,12 @@
 package org.springframework.web.spingmvc;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.spingmvc.pojo.TestOutput;
+import org.springframework.web.spingmvc.pojo.InputDTOTest;
+import org.springframework.web.spingmvc.pojo.OutputDTOTest;
 
 /**
  * @author: dengxin.chen
@@ -39,11 +41,30 @@ public class TestController {
 		return input;
 	}
 
+	/**
+	 * 获取对象
+	 *
+	 * @return
+	 */
 	@PostMapping(value = "/get/bean")
-	public TestOutput getBean() {
-		TestOutput output = new TestOutput();
+	public OutputDTOTest getBean() {
+		OutputDTOTest output = new OutputDTOTest();
 		output.setAge(10);
 		output.setUserName("testBean");
+		return output;
+	}
+
+	/**
+	 * 对象输入测试
+	 *
+	 * @param input
+	 * @return
+	 */
+	@PostMapping("/input")
+	public OutputDTOTest testInput(@RequestBody InputDTOTest input) {
+		OutputDTOTest output = new OutputDTOTest();
+		output.setAge(input.getAge());
+		output.setUserName(input.getUserName());
 		return output;
 	}
 }

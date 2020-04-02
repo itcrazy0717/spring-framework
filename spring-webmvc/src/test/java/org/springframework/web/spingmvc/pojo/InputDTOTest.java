@@ -2,10 +2,10 @@ package org.springframework.web.spingmvc.pojo;
 
 /**
  * @author: dengxin.chen
- * @date: 2019-06-24 15:48
- * @description:输出测试bean
+ * @date: 2020-04-02 20:26
+ * @description: 输入测试
  */
-public class TestOutput {
+public class InputDTOTest {
 
 	private Integer age;
 	private String userName;
@@ -24,13 +24,5 @@ public class TestOutput {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-	@Override
-	public String toString() {
-		return "TestOutput[" +
-			   "age=" + age +
-			   ", userName='" + userName + '\'' +
-			   ']';
 	}
 }

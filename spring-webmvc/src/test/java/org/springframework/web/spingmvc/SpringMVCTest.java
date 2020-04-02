@@ -1,6 +1,7 @@
 package org.springframework.web.spingmvc;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 
@@ -66,5 +67,27 @@ public class SpringMVCTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
 		Assert.assertEquals("{\"age\":10,\"userName\":\"testBean\"}", response.getContentAsString());
+	}
+
+	/**
+	 * 测试日常工作中一般请求流程，该测试用例需要特别注意
+	 * json格式内容输入，然后返回json
+	 *
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	public void controllerBeanInputTest() throws ServletException, IOException {
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/input");
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		String inputContent = "{\"age\":10,\"userName\":\"inputBean\"}";
+		// 设置请求内容和contentType
+		request.setContent(inputContent.getBytes(StandardCharsets.UTF_8));
+		request.setContentType("application/json");
+
+		dispatcherServlet.service(request, response);
+
+		Assert.assertEquals("{\"age\":10,\"userName\":\"inputBean\"}", response.getContentAsString());
 	}
 }
