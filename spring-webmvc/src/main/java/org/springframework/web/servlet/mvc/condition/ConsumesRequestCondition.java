@@ -44,6 +44,7 @@ import org.springframework.web.servlet.mvc.condition.HeadersRequestCondition.Hea
  * @author Rossen Stoyanchev
  * @since 3.1
  */
+// 对应请求头中的Content-Type
 public final class ConsumesRequestCondition extends AbstractRequestCondition<ConsumesRequestCondition> {
 
 	private static final ConsumesRequestCondition PRE_FLIGHT_MATCH = new ConsumesRequestCondition();

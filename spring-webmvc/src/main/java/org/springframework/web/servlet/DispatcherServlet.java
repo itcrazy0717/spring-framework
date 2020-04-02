@@ -1073,7 +1073,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpServletRequest processedRequest = request;
-		// 处理器执行链对象
+		// 处理器执行链对象 其实就是对应Controller
 		HandlerExecutionChain mappedHandler = null;
 		boolean multipartRequestParsed = false;
 
@@ -1092,7 +1092,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 				// Determine handler for the current request.
 				// 获取可处理当前请求的处理器Handler
-				// Handler其实就是处理方法
+				// Handler其实就是处理方法 获取对应的Controller
 				mappedHandler = getHandler(processedRequest);
 				if (mappedHandler == null) {
 					// 404请求就是在这里进行处理的
@@ -1328,6 +1328,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		if (this.handlerMappings != null) {
 			for (HandlerMapping mapping : this.handlerMappings) {
 				// 获得请求对应的HandlerExecutionChain对象
+				// 获取对应的Controller中的方法
 				HandlerExecutionChain handler = mapping.getHandler(request);
 				if (handler != null) {
 					return handler;

@@ -245,7 +245,9 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 		RequestMethodsRequestCondition methods = this.methodsCondition.getMatchingCondition(request);
 		ParamsRequestCondition params = this.paramsCondition.getMatchingCondition(request);
 		HeadersRequestCondition headers = this.headersCondition.getMatchingCondition(request);
+		// 对应请求头中的Content-type
 		ConsumesRequestCondition consumes = this.consumesCondition.getMatchingCondition(request);
+		// 对应请求头中的Accept
 		ProducesRequestCondition produces = this.producesCondition.getMatchingCondition(request);
 
 		// 如果任一为空，则返回null，表示匹配失败

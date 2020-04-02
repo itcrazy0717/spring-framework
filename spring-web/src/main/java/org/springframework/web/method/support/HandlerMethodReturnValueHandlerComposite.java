@@ -86,6 +86,12 @@ public class HandlerMethodReturnValueHandlerComposite implements HandlerMethodRe
 		handler.handleReturnValue(returnValue, returnType, mavContainer, webRequest);
 	}
 
+	/**
+	 * 选择合适的返回值处理器 如果是ResponseBody则会使用RequestResponseBodyMethodProcessor
+	 * @param value
+	 * @param returnType
+	 * @return
+	 */
 	@Nullable
 	private HandlerMethodReturnValueHandler selectHandler(@Nullable Object value, MethodParameter returnType) {
 		// 判断是否为异步返回值
