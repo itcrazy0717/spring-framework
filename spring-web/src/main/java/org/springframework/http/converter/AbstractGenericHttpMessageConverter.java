@@ -77,6 +77,7 @@ public abstract class AbstractGenericHttpMessageConverter<T> extends AbstractHtt
 	}
 
 	/**
+	 * 写出内容
 	 * This implementation sets the default headers by calling {@link #addDefaultHeaders},
 	 * and then calls {@link #writeInternal}.
 	 */
@@ -84,6 +85,7 @@ public abstract class AbstractGenericHttpMessageConverter<T> extends AbstractHtt
 			HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
 
 		final HttpHeaders headers = outputMessage.getHeaders();
+		// 设置默认输出header的返回字符集
 		addDefaultHeaders(headers, t, contentType);
 
 		if (outputMessage instanceof StreamingHttpOutputMessage) {
@@ -100,6 +102,7 @@ public abstract class AbstractGenericHttpMessageConverter<T> extends AbstractHtt
 			}));
 		}
 		else {
+			// 写出返回值
 			writeInternal(t, type, outputMessage);
 			outputMessage.getBody().flush();
 		}

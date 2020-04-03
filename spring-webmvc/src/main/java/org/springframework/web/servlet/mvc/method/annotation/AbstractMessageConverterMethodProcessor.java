@@ -186,7 +186,8 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 		Object body;
 		Class<?> valueType;
 		Type targetType;
-
+        // 对返回值类型进行判断
+		// 判断是否为String类型
 		if (value instanceof CharSequence) {
 			body = value.toString();
 			valueType = String.class;
@@ -194,6 +195,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 		}
 		else {
 			body = value;
+			// 获取返回值的类型
 			valueType = getReturnValueType(body, returnType);
 			targetType = GenericTypeResolver.resolveType(getGenericType(returnType), returnType.getContainingClass());
 		}
@@ -220,7 +222,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 
 		// 选择使用的MediaType
 		MediaType selectedMediaType = null;
-		// 获得响应中的ContentType
+		// 获得输出响应中的ContentType
 		MediaType contentType = outputMessage.getHeaders().getContentType();
 		// 如果存在ContentType的值，并且不包含通配符，则使用它作为selectedMediaType
 		if (contentType != null && contentType.isConcrete()) {
@@ -233,14 +235,14 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 			HttpServletRequest request = inputMessage.getServletRequest();
 			// 从请求中，获得可接受的MediaType数组，默认实现是从请求头ACCEPT中获取
 			List<MediaType> acceptableTypes = getAcceptableMediaTypes(request);
-			// 获得可生产的MediaType数组
+			// 获得与返回值匹配的MediaType
 			List<MediaType> producibleTypes = getProducibleMediaTypes(request, valueType, targetType);
             // 如果body非空，并且无可产生的MediaType数组，则抛出异常
 			if (body != null && producibleTypes.isEmpty()) {
 				throw new HttpMessageNotWritableException(
 						"No converter found for return value of type: " + valueType);
 			}
-			// 通过acceptableTypes来对比，将符合producibleType添加到mediaTypesToUse结果中
+			// 判断兼容性
 			List<MediaType> mediaTypesToUse = new ArrayList<>();
 			for (MediaType requestedType : acceptableTypes) {
 				for (MediaType producibleType : producibleTypes) {
@@ -387,6 +389,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 			return new ArrayList<>(mediaTypes);
 		}
 		// 如果allSupportedMediaTypes非空，则遍历HttpMessageConverter数组，进行类型匹配
+		// 这里和canRead处理逻辑是相同的
 		else if (!this.allSupportedMediaTypes.isEmpty()) {
 			List<MediaType> result = new ArrayList<>();
 			for (HttpMessageConverter<?> converter : this.messageConverters) {
@@ -409,7 +412,7 @@ public abstract class AbstractMessageConverterMethodProcessor extends AbstractMe
 
 	private List<MediaType> getAcceptableMediaTypes(HttpServletRequest request)
 			throws HttpMediaTypeNotAcceptableException {
-
+        // contentNegotiationManager内容协调器比较重要
 		return this.contentNegotiationManager.resolveMediaTypes(new ServletWebRequest(request));
 	}
 

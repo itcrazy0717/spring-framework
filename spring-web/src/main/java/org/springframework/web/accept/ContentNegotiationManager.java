@@ -128,6 +128,7 @@ public class ContentNegotiationManager implements ContentNegotiationStrategy, Me
 			}
 			return mediaTypes;
 		}
+		// 匹配所有的media type "*/*"
 		return MEDIA_TYPE_ALL_LIST;
 	}
 

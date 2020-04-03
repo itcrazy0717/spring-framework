@@ -118,6 +118,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 	}
 
 	/**
+	 * 解析入参
 	 * Throws MethodArgumentNotValidException if validation fails.
 	 * @throws HttpMessageNotReadableException if {@link RequestBody#required()}
 	 * is {@code true} and there is no body content or if there is no suitable
@@ -128,7 +129,9 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
 		parameter = parameter.nestedIfOptional();
+		// 对请求入参进行解析
 		Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());
+		// 获取入参对应的对象名称
 		String name = Conventions.getVariableNameForParameter(parameter);
 
 		if (binderFactory != null) {
@@ -155,6 +158,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		Assert.state(servletRequest != null, "No HttpServletRequest");
 		ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
 
+		// 通过messageConverter读取请求入参
 		Object arg = readWithMessageConverters(inputMessage, parameter, paramType);
 		if (arg == null && checkRequired(parameter)) {
 			throw new HttpMessageNotReadableException("Required request body is missing: " +
@@ -181,6 +185,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 
 		// Try even with null return value. ResponseBodyAdvice could get involved.
 		// 使用HttpMessageConverter对对象进行转换，并写入响应
+		// 这里就是通过HttpMessageConverter#canWrite方法进行操作
 		writeWithMessageConverters(returnValue, returnType, inputMessage, outputMessage);
 	}
 

@@ -155,11 +155,14 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 
 	@Override
 	public boolean canRead(Type type, @Nullable Class<?> contextClass, @Nullable MediaType mediaType) {
+		// 判断请求对象是否可读
 		if (!canRead(mediaType)) {
 			return false;
 		}
+		// 获取请求对象参数的类型
 		JavaType javaType = getJavaType(type, contextClass);
 		AtomicReference<Throwable> causeRef = new AtomicReference<>();
+		// 判断对象是否可以被反序列化
 		if (this.objectMapper.canDeserialize(javaType, causeRef)) {
 			return true;
 		}
@@ -172,6 +175,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 		if (!canWrite(mediaType)) {
 			return false;
 		}
+		// 判断是否可以序列化
 		AtomicReference<Throwable> causeRef = new AtomicReference<>();
 		if (this.objectMapper.canSerialize(clazz, causeRef)) {
 			return true;
@@ -224,6 +228,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 			throws IOException, HttpMessageNotReadableException {
 
 		JavaType javaType = getJavaType(type, contextClass);
+		// 获取请求对象
 		return readJavaType(javaType, inputMessage);
 	}
 
@@ -236,6 +241,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 							readValue(inputMessage.getBody());
 				}
 			}
+			// 通过ObjectMapper对json对象进行读取
 			return this.objectMapper.readValue(inputMessage.getBody(), javaType);
 		}
 		catch (InvalidDefinitionException ex) {

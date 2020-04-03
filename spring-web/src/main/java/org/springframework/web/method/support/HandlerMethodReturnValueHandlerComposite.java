@@ -102,7 +102,7 @@ public class HandlerMethodReturnValueHandlerComposite implements HandlerMethodRe
 			if (isAsyncValue && !(handler instanceof AsyncHandlerMethodReturnValueHandler)) {
 				continue;
 			}
-			// 如果支持，则返回
+			// 如果支持，则返回 主要是判断返回值和返回值处理器是否匹配
 			if (handler.supportsReturnType(returnType)) {
 				return handler;
 			}

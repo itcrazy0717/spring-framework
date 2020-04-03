@@ -37,7 +37,7 @@ public class SpringMVCTest {
 	 */
 	@Test
 	public void controllerRequestParamTest() throws ServletException, IOException {
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get");
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/mvc/test/get");
 		request.setParameter("input", "hello sping mvc");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
@@ -49,7 +49,7 @@ public class SpringMVCTest {
 	 */
 	@Test
 	public void controllerWithOutRequestParamTest() throws ServletException, IOException {
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get-with-out-param");
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/mvc/test/get-with-out-param");
 		request.setParameter("inputA", "hello sping mvc");
 		request.setParameter("inputB", " two paramters");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -63,10 +63,10 @@ public class SpringMVCTest {
 	 */
 	@Test
 	public void controllerBeanTest() throws ServletException, IOException {
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/get/bean");
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/mvc/test/bean");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		dispatcherServlet.service(request, response);
-		Assert.assertEquals("{\"age\":10,\"userName\":\"testBean\"}", response.getContentAsString());
+		Assert.assertEquals("{\"age\":30,\"userName\":\"itcrazy0717\"}", response.getContentAsString());
 	}
 
 	/**
@@ -78,16 +78,16 @@ public class SpringMVCTest {
 	 */
 	@Test
 	public void controllerBeanInputTest() throws ServletException, IOException {
-		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/spring/mvc/test/input");
+		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/mvc/test/input");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
-		String inputContent = "{\"age\":10,\"userName\":\"inputBean\"}";
+		String inputContent = "{\"age\":30,\"userName\":\"itcrazy0717\"}";
 		// 设置请求内容和contentType
 		request.setContent(inputContent.getBytes(StandardCharsets.UTF_8));
 		request.setContentType("application/json");
 
 		dispatcherServlet.service(request, response);
 
-		Assert.assertEquals("{\"age\":10,\"userName\":\"inputBean\"}", response.getContentAsString());
+		Assert.assertEquals("{\"age\":30,\"userName\":\"itcrazy0717\"}", response.getContentAsString());
 	}
 }

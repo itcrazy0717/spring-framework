@@ -14,8 +14,8 @@ import org.springframework.web.spingmvc.pojo.OutputDTOTest;
  * @description: spring mvc test controller
  */
 @RestController
-@RequestMapping(value = "/spring/mvc/test")
-public class TestController {
+@RequestMapping(value = "/mvc/test")
+public class MyTestController {
 
 	/**
 	 * Controller上不带@RequestParam注解
@@ -46,11 +46,11 @@ public class TestController {
 	 *
 	 * @return
 	 */
-	@PostMapping(value = "/get/bean")
+	@PostMapping(value = "/bean")
 	public OutputDTOTest getBean() {
 		OutputDTOTest output = new OutputDTOTest();
-		output.setAge(10);
-		output.setUserName("testBean");
+		output.setAge(30);
+		output.setUserName("itcrazy0717");
 		return output;
 	}
 

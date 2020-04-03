@@ -122,6 +122,7 @@ public abstract class AbstractMappingContentNegotiationStrategy extends MappingM
 				return Collections.singletonList(mediaType);
 			}
 		}
+		// 匹配所有的mediatype "*/*"
 		return MEDIA_TYPE_ALL_LIST;
 	}
 
