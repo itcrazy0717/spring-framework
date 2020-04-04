@@ -71,7 +71,7 @@ public class SpringMVCTest {
 
 	/**
 	 * 测试日常工作中一般请求流程，该测试用例需要特别注意
-	 * json格式内容输入，然后返回json
+	 * 请求参数为json，然后返回json
 	 *
 	 * @throws ServletException
 	 * @throws IOException
