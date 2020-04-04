@@ -226,7 +226,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 	@Override
 	public Object read(Type type, @Nullable Class<?> contextClass, HttpInputMessage inputMessage)
 			throws IOException, HttpMessageNotReadableException {
-
+        // 获取入参对象格式
 		JavaType javaType = getJavaType(type, contextClass);
 		// 获取请求对象
 		return readJavaType(javaType, inputMessage);
