@@ -147,7 +147,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 		}
 	}
 
-
+    // 判断入参可读性，也就是判断mediaType是否支持
 	@Override
 	public boolean canRead(Class<?> clazz, @Nullable MediaType mediaType) {
 		return canRead(clazz, null, mediaType);
