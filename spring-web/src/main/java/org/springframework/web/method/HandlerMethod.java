@@ -366,6 +366,7 @@ public class HandlerMethod {
 		if (this.bean instanceof String) {
 			Assert.state(this.beanFactory != null, "Cannot resolve bean name without BeanFactory");
 			String beanName = (String) this.bean;
+			// 从容器中得到controller对象
 			handler = this.beanFactory.getBean(beanName);
 		}
 		// 创建HandlerMethod对象

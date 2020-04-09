@@ -76,7 +76,8 @@ public class HandlerMethodReturnValueHandlerComposite implements HandlerMethodRe
 	@Override
 	public void handleReturnValue(@Nullable Object returnValue, MethodParameter returnType,
 			ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
-        // 获得HandlerMethodReturnValueHandler对象
+        // 选择具体处理器进行处理
+		// 获得HandlerMethodReturnValueHandler对象
 		HandlerMethodReturnValueHandler handler = selectHandler(returnValue, returnType);
 		// 如果获取不到，则抛出异常
 		if (handler == null) {

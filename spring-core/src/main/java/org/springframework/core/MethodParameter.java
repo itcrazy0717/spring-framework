@@ -520,6 +520,7 @@ public class MethodParameter {
 			}
 			return type;
 		} else {
+			// 返回入参的类型
 			return getGenericParameterType();
 		}
 	}

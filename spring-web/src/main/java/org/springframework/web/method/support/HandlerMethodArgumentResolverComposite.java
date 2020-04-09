@@ -121,17 +121,18 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
         // 现获取解析对象
 		HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
-		// 获取不到，则抛出异常
+		// 获取不到参数解析器，则抛出异常
 		if (resolver == null) {
 			throw new IllegalArgumentException(
 					"Unsupported parameter type [" + parameter.getParameterType().getName() + "]." +
 							" supportsParameter should be called first.");
 		}
-		// 执行解析
+		// 执行解析 返回入参对象
 		return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
 	}
 
 	/**
+	 * 获取对应参数解析器 默认26个参数解析器
 	 * Find a registered {@link HandlerMethodArgumentResolver} that supports
 	 * the given method parameter.
 	 */

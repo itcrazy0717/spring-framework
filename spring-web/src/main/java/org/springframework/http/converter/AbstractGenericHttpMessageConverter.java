@@ -72,6 +72,7 @@ public abstract class AbstractGenericHttpMessageConverter<T> extends AbstractHtt
 	}
 
 	@Override
+	// 响应体是否可写出
 	public boolean canWrite(@Nullable Type type, Class<?> clazz, @Nullable MediaType mediaType) {
 		return canWrite(clazz, mediaType);
 	}

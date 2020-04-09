@@ -162,6 +162,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
+	// 读请求头中的信息进行读取
 	protected <T> Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter,
 			Type targetType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
 
@@ -207,6 +208,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 						(targetClass != null && converter.canRead(targetClass, contentType))) {
 					// 如果请求中包含请求体
 					if (message.hasBody()) {
+						// 这里有点不是很清楚RequestResponseBodyAdviceChain的作用
 						HttpInputMessage msgToUse =
 								getAdvice().beforeBodyRead(message, parameter, targetType, converterType);
 						// 读取请求body
@@ -224,7 +226,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 		catch (IOException ex) {
 			throw new HttpMessageNotReadableException("I/O error while reading input message", ex, inputMessage);
 		}
-
+        // 如果请求对象为空，进行判空判断
 		if (body == NO_VALUE) {
 			if (httpMethod == null || !SUPPORTED_METHODS.contains(httpMethod) ||
 					(noContentType && !message.hasBody())) {
@@ -266,6 +268,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	 */
 	protected void validateIfApplicable(WebDataBinder binder, MethodParameter parameter) {
 		Annotation[] annotations = parameter.getParameterAnnotations();
+		// @Validated注解校验
 		for (Annotation ann : annotations) {
 			Validated validatedAnn = AnnotationUtils.getAnnotation(ann, Validated.class);
 			if (validatedAnn != null || ann.annotationType().getSimpleName().startsWith("Valid")) {

@@ -130,7 +130,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 	@Nullable
 	public Object invokeForRequest(NativeWebRequest request, @Nullable ModelAndViewContainer mavContainer,
 			Object... providedArgs) throws Exception {
-        // 解析参数
+        // 解析入参，获取入参值
 		Object[] args = getMethodArgumentValues(request, mavContainer, providedArgs);
 		if (logger.isTraceEnabled()) {
 			logger.trace("Arguments: " + Arrays.toString(args));
@@ -165,7 +165,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 			if (args[i] != null) {
 				continue;
 			}
-			// 判断parameter是否支持当前的解析器
+			// 通过参数去匹配相应的参数解析器
 			if (!this.resolvers.supportsParameter(parameter)) {
 				throw new IllegalStateException(formatArgumentError(parameter, "No suitable resolver"));
 			}
@@ -195,7 +195,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 		// 设置方法为可访问
 		ReflectionUtils.makeAccessible(getBridgedMethod());
 		try {
-			// 执行调用
+			// 通过反射执行controller调用
 			return getBridgedMethod().invoke(getBean(), args);
 		}
 		catch (IllegalArgumentException ex) {

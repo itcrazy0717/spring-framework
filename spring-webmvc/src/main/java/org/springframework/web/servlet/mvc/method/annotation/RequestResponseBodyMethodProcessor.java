@@ -59,6 +59,7 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
  * @author Juergen Hoeller
  * @since 3.1
  */
+// 对添加了@RequestBody注解的参数进行解析
 public class RequestResponseBodyMethodProcessor extends AbstractMessageConverterMethodProcessor {
 
 	/**
@@ -129,7 +130,8 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
 		parameter = parameter.nestedIfOptional();
-		// 对请求入参进行解析
+		// 对请求入参进行解析，返回具体入参对象
+		// 这里的逻辑有点多，会涉及到消息解析器
 		Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());
 		// 获取入参对应的对象名称
 		String name = Conventions.getVariableNameForParameter(parameter);
@@ -137,6 +139,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		if (binderFactory != null) {
 			WebDataBinder binder = binderFactory.createBinder(webRequest, arg, name);
 			if (arg != null) {
+				// @Validated校验
 				validateIfApplicable(binder, parameter);
 				if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
 					throw new MethodArgumentNotValidException(parameter, binder.getBindingResult());
@@ -169,6 +172,9 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		Assert.state(servletRequest != null, "No HttpServletRequest");
 		ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
 
+		/**
+		 * {@link org.springframework.http.converter.json.MappingJackson2HttpMessageConverter}
+		 */
 		// 通过messageConverter读取请求入参
 		Object arg = readWithMessageConverters(inputMessage, parameter, paramType);
 		if (arg == null && checkRequired(parameter)) {
@@ -195,7 +201,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		ServletServerHttpResponse outputMessage = createOutputMessage(webRequest);
 
 		// Try even with null return value. ResponseBodyAdvice could get involved.
-		// 使用HttpMessageConverter对对象进行转换，并写入响应
+		// 使用HttpMessageConverter对对象进行转换，并写出响应对象
 		// 这里就是通过HttpMessageConverter#canWrite方法进行操作
 		writeWithMessageConverters(returnValue, returnType, inputMessage, outputMessage);
 	}

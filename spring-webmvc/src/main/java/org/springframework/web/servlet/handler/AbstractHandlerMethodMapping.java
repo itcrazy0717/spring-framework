@@ -381,8 +381,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		try {
 			// 获得HandlerMethod对象
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
-			// 进一步，获得HandlerMethod对象
-			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
+			// 如果handlerMethod不为空，则会创建对应controller
+ 			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
 		}
 		finally {
 			this.mappingRegistry.releaseReadLock();

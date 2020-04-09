@@ -167,6 +167,7 @@ public @interface RequestMapping {
 	String[] headers() default {};
 
 	/**
+	 * 指定处理请求的提交类型(content-type)
 	 * The consumable media types of the mapped request, narrowing the primary mapping.
 	 * <p>The format is a single media type or a sequence of media types,
 	 * with a request only mapped if the {@code Content-Type} matches one of these media types.
@@ -186,6 +187,7 @@ public @interface RequestMapping {
 	String[] consumes() default {};
 
 	/**
+	 * 指定返回的内容类型，仅当request请求头中的accept类型中包含该指定类型才返回
 	 * The producible media types of the mapped request, narrowing the primary mapping.
 	 * <p>The format is a single media type or a sequence of media types,
 	 * with a request only mapped if the {@code Accept} matches one of these media types.

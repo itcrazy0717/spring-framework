@@ -273,6 +273,7 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 		// 为什么要创建RequestMappingInfo对象
 		// 因为当前RequestMappingInfo对象的一个methodsCondition可配置多个GET、POST、DELETE等条件
 		// 但实际就匹配一个请求类型，此时methods只代表匹配的那一个
+		// patterns表示请求url
 		return new RequestMappingInfo(this.name, patterns,
 				methods, params, headers, consumes, produces, custom.getCondition());
 	}

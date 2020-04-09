@@ -32,6 +32,7 @@ import org.springframework.http.HttpLogging;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.StreamingHttpOutputMessage;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -55,6 +56,9 @@ public abstract class AbstractHttpMessageConverter<T> implements HttpMessageConv
 	 */
 	protected final Log logger = HttpLogging.forLogName(getClass());
 
+	/**
+	 * 这里会在messageConverter的构造函数中初始化，具体可以参看{@link MappingJackson2HttpMessageConverter#MappingJackson2HttpMessageConverter}
+	 */
 	private List<MediaType> supportedMediaTypes = Collections.emptyList();
 
 	@Nullable
@@ -158,6 +162,7 @@ public abstract class AbstractHttpMessageConverter<T> implements HttpMessageConv
 		if (mediaType == null) {
 			return true;
 		}
+		// 判断是否对类型支持
 		for (MediaType supportedMediaType : getSupportedMediaTypes()) {
 			if (supportedMediaType.includes(mediaType)) {
 				return true;
@@ -258,6 +263,7 @@ public abstract class AbstractHttpMessageConverter<T> implements HttpMessageConv
 			}
 			if (contentTypeToUse != null) {
 				if (contentTypeToUse.getCharset() == null) {
+					// 默认编码方式为UTF-8
 					Charset defaultCharset = getDefaultCharset();
 					if (defaultCharset != null) {
 						contentTypeToUse = new MediaType(contentTypeToUse, defaultCharset);
