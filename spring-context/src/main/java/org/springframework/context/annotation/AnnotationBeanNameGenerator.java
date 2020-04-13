@@ -61,6 +61,7 @@ import org.springframework.util.StringUtils;
  * @see org.springframework.stereotype.Controller#value()
  * @see javax.inject.Named#value()
  */
+// bean Name生成器
 public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 
 	private static final String COMPONENT_ANNOTATION_CLASSNAME = "org.springframework.stereotype.Component";
@@ -69,6 +70,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	@Override
 	public String generateBeanName(BeanDefinition definition, BeanDefinitionRegistry registry) {
 		if (definition instanceof AnnotatedBeanDefinition) {
+			// 从注解上获取是否自定义了类名
 			String beanName = determineBeanNameFromAnnotation((AnnotatedBeanDefinition) definition);
 			if (StringUtils.hasText(beanName)) {
 				// Explicit bean name found.
@@ -76,6 +78,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 			}
 		}
 		// Fallback: generate a unique default bean name.
+		// 生成默认的beanName 首字母小写
 		return buildDefaultBeanName(definition, registry);
 	}
 
@@ -151,7 +154,9 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	protected String buildDefaultBeanName(BeanDefinition definition) {
 		String beanClassName = definition.getBeanClassName();
 		Assert.state(beanClassName != null, "No bean class name set");
+		// 截取获取类的名称
 		String shortClassName = ClassUtils.getShortName(beanClassName);
+		// 将首字母转换成小写 所以beanName的默认就是首字母小写的 AnnotationIocBean->annotationIocBean
 		return Introspector.decapitalize(shortClassName);
 	}
 

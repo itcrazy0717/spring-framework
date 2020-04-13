@@ -42,6 +42,7 @@ import org.springframework.util.ClassUtils;
  * @author Sam Brannen
  * @since 2.5
  */
+// 注解类型过滤器
 public class AnnotationTypeFilter extends AbstractTypeHierarchyTraversingFilter {
 
 	private final Class<? extends Annotation> annotationType;

@@ -539,7 +539,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		// 确定根路径与子路径
 		String rootDirPath = determineRootDir(locationPattern);
 		String subPattern = locationPattern.substring(rootDirPath.length());
-		// 得到根路径下的资源 
+		// 得到根路径下的资源 这里主要是讲根路径封装成resources
 		Resource[] rootDirResources = getResources(rootDirPath);
 		Set<Resource> result = new LinkedHashSet<>(16);
 		// 遍历获取资源
@@ -776,6 +776,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 			}
 			return Collections.emptySet();
 		}
+		// 找到指定路径下的文件，并封装成resource
 		return doFindMatchingFileSystemResources(rootDir, subPattern);
 	}
 
@@ -797,6 +798,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		Set<File> matchingFiles = retrieveMatchingFiles(rootDir, subPattern);
 		Set<Resource> result = new LinkedHashSet<>(matchingFiles.size());
 		for (File file : matchingFiles) {
+			// 封装成FileSystemResource对象
 			result.add(new FileSystemResource(file));
 		}
 		return result;
@@ -840,6 +842,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 		}
 		fullPattern = fullPattern + StringUtils.replace(pattern, File.separator, "/");
 		Set<File> result = new LinkedHashSet<>(8);
+        // 实际发现文件函数，注意spring实际执行动作的函数基本上都是以do开头
 		doRetrieveMatchingFiles(fullPattern, rootDir, result);
 		return result;
 	}
@@ -860,6 +863,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 					"] for files matching pattern [" + fullPattern + "]");
 		}
 		// 找到包下所有class文件
+		// 直接获取路径下的文件
 		File[] dirContents = dir.listFiles();
 		if (dirContents == null) {
 			if (logger.isWarnEnabled()) {
