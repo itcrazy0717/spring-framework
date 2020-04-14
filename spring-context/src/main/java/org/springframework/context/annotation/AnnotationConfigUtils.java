@@ -236,6 +236,7 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	public static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd) {
+		// 处理一些注解属性 @Lazy @Primary @DependsOn
 		processCommonDefinitionAnnotations(abd, abd.getMetadata());
 	}
 

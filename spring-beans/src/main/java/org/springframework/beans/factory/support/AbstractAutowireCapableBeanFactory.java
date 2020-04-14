@@ -1399,7 +1399,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 					// 返回值为是否继续填充bean
-					// postProcessAfterInstantiation:如果应该在bean上面设置属性，则返回true，否则返回false
+					// postProcessAfterInstantiation:如果要在bean上面设置属性，则返回true，否则返回false
 					// 一般情况下，应该返回true
 					// 返回false的话，将会阻止此bean实例上调用任何后续的InstantiationAwareBeanPostProcessors实例
 					if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {

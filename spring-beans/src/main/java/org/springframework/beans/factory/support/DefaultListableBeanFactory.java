@@ -876,6 +876,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 						}
 					}
 				} else {
+					// 不是FactoryBean，则走该分支
 					getBean(beanName);
 				}
 			}
@@ -1218,6 +1219,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					descriptor, requestingBeanName);
 			if (result == null) {
 				// 通用处理逻辑
+				// 获取DI的对象，从容器中获取，如果DI对象未初始化，则会进行初始化
 				result = doResolveDependency(descriptor, requestingBeanName, autowiredBeanNames, typeConverter);
 			}
 			return result;
@@ -1241,6 +1243,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 
 			// 依赖的类型
+			// 获取依赖注入的类型
 			Class<?> type = descriptor.getDependencyType();
 			// 支持Spring的注解@Value
 			Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
@@ -1312,6 +1315,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 			// @Autowired 注解注入入口
 			if (instanceCandidate instanceof Class) {
+				// 从容器中获取依赖注入的对象
 				instanceCandidate = descriptor.resolveCandidate(autowiredBeanName, type, this);
 			}
 			Object result = instanceCandidate;

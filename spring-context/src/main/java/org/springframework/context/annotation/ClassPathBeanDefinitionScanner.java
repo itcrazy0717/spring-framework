@@ -293,11 +293,16 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 					// 处理BeanDefinition的公共属性
 					AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);
 				}
+				// 校验bean是否已经在容器中
+				// 如果不存在，则进行创建
 				if (checkCandidate(beanName, candidate)) {
+					// 创建BeanDefinitionHolder对象
 					BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(candidate, beanName);
+					// 是否要创建代理模式
 					definitionHolder =
 							AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 					beanDefinitions.add(definitionHolder);
+					// 将bean注册到容器中 这里注册含有注解bean的核心
 					registerBeanDefinition(definitionHolder, this.registry);
 				}
 			}
@@ -343,9 +348,11 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 	 * bean definition has been found for the specified name
 	 */
 	protected boolean checkCandidate(String beanName, BeanDefinition beanDefinition) throws IllegalStateException {
+		// 如果bean不在容器中，则需要进行创建
 		if (!this.registry.containsBeanDefinition(beanName)) {
 			return true;
 		}
+		// 如果存在则会尝试判断做兼容处理
 		BeanDefinition existingDef = this.registry.getBeanDefinition(beanName);
 		BeanDefinition originatingDef = existingDef.getOriginatingBeanDefinition();
 		if (originatingDef != null) {

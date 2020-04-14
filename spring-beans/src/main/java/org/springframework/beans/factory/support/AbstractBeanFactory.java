@@ -1467,6 +1467,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			throws CannotLoadBeanClassException {
 		// TODO: 2019/4/23  还未详细分析这里
 		try {
+			// 在对BeanDefinition进行解析的时候会设置该对象
 			if (mbd.hasBeanClass()) {
 				return mbd.getBeanClass();
 			}

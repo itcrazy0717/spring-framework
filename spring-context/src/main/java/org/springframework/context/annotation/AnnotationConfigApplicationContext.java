@@ -98,7 +98,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext(String... basePackages) {
 		this();
+		// 扫描指定包下的注解对象，注册到ioc容器中
 		scan(basePackages);
+		// 进入bean生成过程
 		refresh();
 	}
 
