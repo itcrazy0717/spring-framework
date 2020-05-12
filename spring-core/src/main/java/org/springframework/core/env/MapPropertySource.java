@@ -38,6 +38,7 @@ public class MapPropertySource extends EnumerablePropertySource<Map<String, Obje
 
 	@Override
 	@Nullable
+	// 取出占位符的值
 	public Object getProperty(String name) {
 		return this.source.get(name);
 	}
