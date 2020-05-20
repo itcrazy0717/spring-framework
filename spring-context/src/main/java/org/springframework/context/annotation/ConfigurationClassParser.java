@@ -159,7 +159,10 @@ class ConfigurationClassParser {
 		this.conditionEvaluator = new ConditionEvaluator(registry, environment, resourceLoader);
 	}
 
-
+	/**
+	 * 对@Configuration注解对象进行具体解析
+	 * @param configCandidates
+	 */
 	public void parse(Set<BeanDefinitionHolder> configCandidates) {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
@@ -184,7 +187,7 @@ class ConfigurationClassParser {
 						"Failed to parse configuration class [" + bd.getBeanClassName() + "]", ex);
 			}
 		}
-
+        // spring boot解析会走该方法中
 		this.deferredImportSelectorHandler.process();
 	}
 
@@ -199,7 +202,7 @@ class ConfigurationClassParser {
 	}
 
 	protected final void parse(AnnotationMetadata metadata, String beanName) throws IOException {
-		// 解析@Configuration的对象
+		// 解析@Configuration的对象，这里其实是解析含有@Bean注解的方法，然后返回一个方法的集合
 		processConfigurationClass(new ConfigurationClass(metadata, beanName));
 	}
 
@@ -217,7 +220,7 @@ class ConfigurationClassParser {
 		return this.configurationClasses.keySet();
 	}
 
-
+    // 解析带有@Configuration注解对象
 	protected void processConfigurationClass(ConfigurationClass configClass) throws IOException {
 		if (this.conditionEvaluator.shouldSkip(configClass.getMetadata(), ConfigurationPhase.PARSE_CONFIGURATION)) {
 			return;
@@ -244,7 +247,7 @@ class ConfigurationClassParser {
 		// 将对象信息封装成SourceClass对象
 		SourceClass sourceClass = asSourceClass(configClass);
 		do {
-			// 进行具体解析操作
+			// 进行具体解析操作 获取含有@Bean注解方法的集合
 			sourceClass = doProcessConfigurationClass(configClass, sourceClass);
 		}
 		while (sourceClass != null);
@@ -264,7 +267,7 @@ class ConfigurationClassParser {
 	protected final SourceClass doProcessConfigurationClass(ConfigurationClass configClass, SourceClass sourceClass)
 			throws IOException {
         // 该方法其实就是对各种注解的处理操作
-		
+
 		// 处理@Component注解 注意@Configuration注解其实就是@Component注解
 		if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
 			// Recursively process any member (nested) classes first
@@ -324,9 +327,10 @@ class ConfigurationClassParser {
 				configClass.addImportedResource(resolvedResource, readerClass);
 			}
 		}
-        
+
 		// Process individual @Bean methods
 		// 注意，这里就是对@Bean注解进行处理，敲重点，通过retrieveBeanMethodMetadata方法获取含有@Bean注解的元数据信息
+		// 这里返回的是含有@Bean注解的方法集合
 		Set<MethodMetadata> beanMethods = retrieveBeanMethodMetadata(sourceClass);
 		for (MethodMetadata methodMetadata : beanMethods) {
 			configClass.addBeanMethod(new BeanMethod(methodMetadata, configClass));
@@ -337,6 +341,7 @@ class ConfigurationClassParser {
 
 		// Process superclass, if any
 		if (sourceClass.getMetadata().hasSuperClass()) {
+			// 一般对象的父类就是Object，但是Object是java.lang.Object，会直接跳过
 			String superclass = sourceClass.getMetadata().getSuperClassName();
 			if (superclass != null && !superclass.startsWith("java") &&
 					!this.knownSuperclasses.containsKey(superclass)) {
@@ -401,6 +406,7 @@ class ConfigurationClassParser {
 	 * Retrieve the metadata for all <code>@Bean</code> methods.
 	 */
 	private Set<MethodMetadata> retrieveBeanMethodMetadata(SourceClass sourceClass) {
+		// 获取对象元数据，通过原对象获取含有@Bean注解的方法
 		AnnotationMetadata original = sourceClass.getMetadata();
 		Set<MethodMetadata> beanMethods = original.getAnnotatedMethods(Bean.class.getName());
 		if (beanMethods.size() > 1 && original instanceof StandardAnnotationMetadata) {

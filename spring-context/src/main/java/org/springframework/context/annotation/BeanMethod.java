@@ -31,6 +31,7 @@ import org.springframework.core.type.MethodMetadata;
  * @see ConfigurationClassParser
  * @see ConfigurationClassBeanDefinitionReader
  */
+// @Bean注解对应对象 @Configuration注解下进行对象的注入
 final class BeanMethod extends ConfigurationMethod {
 
 	public BeanMethod(MethodMetadata metadata, ConfigurationClass configurationClass) {

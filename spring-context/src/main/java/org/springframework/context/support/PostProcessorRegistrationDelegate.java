@@ -104,6 +104,7 @@ final class PostProcessorRegistrationDelegate {
 			// 加入registryProcessors集合
 			registryProcessors.addAll(currentRegistryProcessors);
 			// 调用所有实现了PriorityOrdered的BeanDefinitionRegistryPostProcessor的postProcessBeanDefinitionRegistry()
+			// 激活该后置处理器时会对含有@Configuration注解的对象进行解析
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			// 清空，以备下次使用
 			currentRegistryProcessors.clear();
