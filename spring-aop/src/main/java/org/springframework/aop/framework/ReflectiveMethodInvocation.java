@@ -189,6 +189,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			// 如果调用拦截器逻辑，并传递ReflectiveMethodInvocation对象
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			// 执行反射调用
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}

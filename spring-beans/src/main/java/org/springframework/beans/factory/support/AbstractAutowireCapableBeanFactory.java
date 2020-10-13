@@ -1871,6 +1871,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 		// 后置处理器 after
 		if (mbd == null || !mbd.isSynthetic()) {
+			// aop功能将在后置处理中实现
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}
 

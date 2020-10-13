@@ -356,6 +356,7 @@ class ConfigurationClassParser {
 	}
 
 	/**
+	 * 处理@Configuration对象下的嵌套成员类
 	 * Register member (nested) classes that happen to be configuration classes themselves.
 	 */
 	private void processMemberClasses(ConfigurationClass configClass, SourceClass sourceClass) throws IOException {

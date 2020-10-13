@@ -2,11 +2,13 @@ package com.dev.aop;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.dev.basebean.aop.JdkDynamicAopProxyInterface;
 import com.dev.basebean.aop.UserDefinedAopAnnotationBean;
 import com.dev.basebean.aop.UserDefinedCglibAopProxy;
+import com.dev.basebean.aop.proxycreator.InterceptorTestService;
 
 /**
  * @author: dengxin.chen
@@ -55,6 +57,16 @@ public class AopTest {
 		System.out.println();
 		System.out.println("基于注解形式Aop测试结束");
 
+	}
+
+	/**
+	 * beanNameAutoProxyCreator测试
+	 */
+	@Test
+	public void beanNameAutoProxyCreatorTest() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.aop");
+		InterceptorTestService service = context.getBean(InterceptorTestService.class);
+		service.printMsg();
 	}
 
 	/**

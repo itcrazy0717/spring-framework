@@ -81,12 +81,14 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 
 		if (this.beanNames != null) {
 			for (String mappedName : this.beanNames) {
+				// 判断beanClass是否是FactoryBean的子类
 				if (FactoryBean.class.isAssignableFrom(beanClass)) {
 					if (!mappedName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {
 						continue;
 					}
 					mappedName = mappedName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length());
 				}
+				// beanName是否和拦截器设置的name匹配
 				if (isMatch(beanName, mappedName)) {
 					return PROXY_WITHOUT_ADDITIONAL_INTERCEPTORS;
 				}
