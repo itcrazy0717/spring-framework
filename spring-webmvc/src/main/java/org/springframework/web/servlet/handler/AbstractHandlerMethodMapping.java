@@ -295,6 +295,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			// 遍历方法，逐个注册HandlerMethod 
 			// 这里就会将Controller方法中的入参进行进行排序，为后续参数绑定做准备
 			methods.forEach((method, mapping) -> {
+				// 根据方法对url做匹配，然后注册为HandlerMethod
 				Method invocableMethod = AopUtils.selectInvocableMethod(method, userType);
 				registerHandlerMethod(handler, invocableMethod, mapping);
 			});
