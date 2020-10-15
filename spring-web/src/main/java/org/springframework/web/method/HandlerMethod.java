@@ -168,6 +168,7 @@ public class HandlerMethod {
 		this.method = method;
 		this.bridgedMethod = BridgeMethodResolver.findBridgedMethod(method);
 		// 初始化parameters属性
+		// 在初始化RequestMappingHandlerMapping的时候会扫描Controller上的方法对后续入参绑定做准备
 		this.parameters = initMethodParameters();
 		// 初始化responseStatus、responseStatusReason属性
 		evaluateResponseStatus();

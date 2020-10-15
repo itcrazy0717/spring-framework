@@ -215,6 +215,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		}
 
 		configurePathMatchingProperties(handlerMappingDef, element, context);
+		// 像容器中注入RequestMappingHandlerMapping便于controller的解析
 		readerContext.getRegistry().registerBeanDefinition(HANDLER_MAPPING_BEAN_NAME, handlerMappingDef);
 
 		RuntimeBeanReference corsRef = MvcNamespaceUtils.registerCorsConfigurations(null, context, source);
@@ -231,6 +232,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		bindingDef.getPropertyValues().add("validator", validator);
 		bindingDef.getPropertyValues().add("messageCodesResolver", messageCodesResolver);
 
+		// 获取messageConverters
 		ManagedList<?> messageConverters = getMessageConverters(element, source, context);
 		ManagedList<?> argumentResolvers = getArgumentResolvers(element, context);
 		ManagedList<?> returnValueHandlers = getReturnValueHandlers(element, context);
@@ -239,6 +241,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		ManagedList<?> callableInterceptors = getCallableInterceptors(element, source, context);
 		ManagedList<?> deferredResultInterceptors = getDeferredResultInterceptors(element, source, context);
 
+		// 这里注入RequestMappingHandlerAdapter对请求适配进行处理，该对象也比较重要与RequestMappingHandlerMapping一样
 		RootBeanDefinition handlerAdapterDef = new RootBeanDefinition(RequestMappingHandlerAdapter.class);
 		handlerAdapterDef.setSource(source);
 		handlerAdapterDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -267,6 +270,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 
 		handlerAdapterDef.getPropertyValues().add("callableInterceptors", callableInterceptors);
 		handlerAdapterDef.getPropertyValues().add("deferredResultInterceptors", deferredResultInterceptors);
+		// 向容器中注入RequestMappingHandlerAdapter对象
 		readerContext.getRegistry().registerBeanDefinition(HANDLER_ADAPTER_BEAN_NAME, handlerAdapterDef);
 
 		RootBeanDefinition uriContributorDef =

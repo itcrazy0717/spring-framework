@@ -42,6 +42,7 @@ import org.springframework.lang.Nullable;
  * @see #registerBeanDefinitionParser(String, BeanDefinitionParser)
  * @see #registerBeanDefinitionDecorator(String, BeanDefinitionDecorator)
  */
+// spring 命名空间处理器
 public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 
 	/**

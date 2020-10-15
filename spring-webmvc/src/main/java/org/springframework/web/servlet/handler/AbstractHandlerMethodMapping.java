@@ -279,9 +279,11 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			// 获取真实的类，因为handlerType可能是代理类
 			Class<?> userType = ClassUtils.getUserClass(handlerType);
 			// 获得匹配的方法集合
+			// 获取方法与RequestMappingInfo的映射集合
 			Map<Method, T> methods = MethodIntrospector.selectMethods(userType,
 					(MethodIntrospector.MetadataLookup<T>) method -> {
 						try {
+							// 根据方法获取RequestMappingInfo信息
 							return getMappingForMethod(method, userType);
 						}
 						catch (Throwable ex) {
@@ -381,6 +383,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		this.mappingRegistry.acquireReadLock();
 		try {
 			// 获得HandlerMethod对象
+			// 获得对应的方法
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
 			// 如果handlerMethod不为空，则会创建对应controller
  			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);

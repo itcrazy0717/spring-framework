@@ -223,6 +223,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 		if (info != null) {
 			// 基于类上的@RequestMapping注解，构建controller整体请求url
 			RequestMappingInfo typeInfo = createRequestMappingInfo(handlerType);
+			// 因为对象上也可能存在@RequestMapping注解，所以这里需要对controller的url进行拼接
 			if (typeInfo != null) {
 				info = typeInfo.combine(info);
 			}

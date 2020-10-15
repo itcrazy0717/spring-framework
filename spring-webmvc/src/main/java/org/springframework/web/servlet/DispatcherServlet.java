@@ -546,6 +546,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	@Override
 	protected void onRefresh(ApplicationContext context) {
+		// 初始化默认策略，进行兜底操作，在spring容器初始化完成后，通过事件通知执行
 		initStrategies(context);
 	}
 
@@ -561,6 +562,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// 初始化ThemeResolver
 		initThemeResolver(context);
 		// 初始化HandlerMappings 这里如果ioc中未注入RequestMappingHandlerMapping，则在此进行注入
+		// 进行兜底操作
 		initHandlerMappings(context);
 		// 初始化HandlerAdapters
 		initHandlerAdapters(context);
@@ -680,6 +682,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
 		// 如果未获取到handlerMappings，则使用默认的HandlerMapping对象
+		// 兜底操作获取HandlerMapping
 		if (this.handlerMappings == null) {
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {

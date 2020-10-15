@@ -71,10 +71,12 @@ public final class MethodIntrospector {
 
 			ReflectionUtils.doWithMethods(currentHandlerType, method -> {
 				Method specificMethod = ClassUtils.getMostSpecificMethod(method, targetClass);
+				// 得到RequestMappingInfo信息，在回调方法中处理
 				T result = metadataLookup.inspect(specificMethod);
 				if (result != null) {
 					Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
 					if (bridgedMethod == specificMethod || metadataLookup.inspect(bridgedMethod) == null) {
+						// 方法与请求url封装对象的集合
 						methodMap.put(specificMethod, result);
 					}
 				}
@@ -111,6 +113,7 @@ public final class MethodIntrospector {
 	 * target type (typically due to a proxy mismatch)
 	 */
 	public static Method selectInvocableMethod(Method method, Class<?> targetType) {
+		// 判断目标对象与方法是否相同，子类或实现接口
 		if (method.getDeclaringClass().isAssignableFrom(targetType)) {
 			return method;
 		}
