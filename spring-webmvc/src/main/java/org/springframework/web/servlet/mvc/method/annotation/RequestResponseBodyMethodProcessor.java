@@ -130,7 +130,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
 		parameter = parameter.nestedIfOptional();
-		// 对请求入参进行解析，返回具体入参对象
+		// 对请求入参进行解析，返回具体入参对象,进行参数解析
 		// 这里的逻辑有点多，会涉及到消息解析器
 		Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());
 		// 获取入参对应的对象名称
@@ -176,6 +176,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 		 * {@link org.springframework.http.converter.json.MappingJackson2HttpMessageConverter}
 		 */
 		// 通过messageConverter读取请求入参
+		// 获得入参对象，这里已经解析出入参的值
 		Object arg = readWithMessageConverters(inputMessage, parameter, paramType);
 		if (arg == null && checkRequired(parameter)) {
 			throw new HttpMessageNotReadableException("Required request body is missing: " +

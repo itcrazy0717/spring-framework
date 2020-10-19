@@ -163,6 +163,7 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 		JavaType javaType = getJavaType(type, contextClass);
 		AtomicReference<Throwable> causeRef = new AtomicReference<>();
 		// 判断对象是否可以被反序列化
+		// 可以反序列化就可读
 		if (this.objectMapper.canDeserialize(javaType, causeRef)) {
 			return true;
 		}

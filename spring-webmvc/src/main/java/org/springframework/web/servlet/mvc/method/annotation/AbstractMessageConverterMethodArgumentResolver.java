@@ -204,6 +204,8 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 				GenericHttpMessageConverter<?> genericConverter =
 						(converter instanceof GenericHttpMessageConverter ? (GenericHttpMessageConverter<?>) converter : null);
 				// 循环判断入参请求对象是否可以被messageConverter所读取
+				// 对象入参请求是通过AbstractJackson2HttpMessageConverter进行判断
+				// org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.canRead(java.lang.reflect.Type, java.lang.Class<?>, org.springframework.http.MediaType)
 				if (genericConverter != null ? genericConverter.canRead(targetType, contextClass, contentType) :
 						(targetClass != null && converter.canRead(targetClass, contentType))) {
 					// 如果请求中包含请求体
