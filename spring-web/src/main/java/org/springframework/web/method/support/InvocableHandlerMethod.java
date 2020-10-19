@@ -171,6 +171,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 			}
 			try {
 				// 具体执行解析获取入参的值
+				// 进行参数绑定
 				args[i] = this.resolvers.resolveArgument(parameter, mavContainer, request, this.dataBinderFactory);
 			}
 			catch (Exception ex) {

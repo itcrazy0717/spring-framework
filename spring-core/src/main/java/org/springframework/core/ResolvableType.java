@@ -1315,7 +1315,9 @@ public class ResolvableType implements Serializable {
 	 */
 	static void resolveMethodParameter(MethodParameter methodParameter) {
 		Assert.notNull(methodParameter, "MethodParameter must not be null");
+		// 首先获得方法所在的对象，也就是controller
 		ResolvableType owner = forType(methodParameter.getContainingClass()).as(methodParameter.getDeclaringClass());
+		// 设置入参的类型
 		methodParameter.setParameterType(
 				forType(null, new MethodParameterTypeProvider(methodParameter), owner.asVariableResolver()).resolve());
 	}

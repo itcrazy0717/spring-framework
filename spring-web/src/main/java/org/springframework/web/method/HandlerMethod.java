@@ -147,6 +147,7 @@ public class HandlerMethod {
 	}
 
 	/**
+	 * 在RequestMappingHandlerMapping初始化的时候就会扫描Controller上的注解，然后做参数映射，为后续入参绑定做准备
 	 * Create an instance from a bean name, a method, and a {@code BeanFactory}.
 	 * The method {@link #createWithResolvedBean()} may be used later to
 	 * re-create the {@code HandlerMethod} with an initialized bean.
@@ -218,6 +219,7 @@ public class HandlerMethod {
 		for (int i = 0; i < count; i++) {
 			// 在创建HandlerMethodParameter对象的时候设置parameterIndex的值，在后期进行参数绑定的时候，就可以直接对应上逻辑关系了
 			HandlerMethodParameter parameter = new HandlerMethodParameter(i);
+			// 解析方法参数
 			GenericTypeResolver.resolveParameterType(parameter, this.beanType);
 			result[i] = parameter;
 		}

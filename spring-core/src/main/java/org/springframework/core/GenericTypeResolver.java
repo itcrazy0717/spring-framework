@@ -62,6 +62,7 @@ public final class GenericTypeResolver {
 		Assert.notNull(methodParameter, "MethodParameter must not be null");
 		Assert.notNull(implementationClass, "Class must not be null");
 		methodParameter.setContainingClass(implementationClass);
+		// 解析方法参数类型
 		ResolvableType.resolveMethodParameter(methodParameter);
 		return methodParameter.getParameterType();
 	}
