@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.dev.basebean.aware.UserDefinedAware;
 import com.dev.basebean.beanpostprocessor.BeanPostProcessorBase;
 import com.dev.basebean.circledepend.setter.SetterCircleDependA;
+import com.dev.basebean.event.TestEvent;
 import com.dev.basebean.initializingbean.UserDefinedInitializingBean;
 import com.dev.basebean.ioc.AnnotationIocBean;
 import com.dev.basebean.ioc.IocTestBean;
@@ -70,6 +71,18 @@ public class IOCTest {
 		System.out.println(annotationIocTestBean.getClass());
 
 		System.out.println("注解形式注入bean调试过程结束");
+	}
+
+	/**
+	 * spring事件监听测试
+	 */
+	@Test
+	public void eventCTest() {
+		ApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.event");
+		// 可扩展，利用任务队列进行处理
+		// SimpleApplicationEventMulticaster eventMulticaster = context.getBean(SimpleApplicationEventMulticaster.class);
+		// eventMulticaster.setTaskExecutor((TaskExecutor) Runnable::run);
+		context.publishEvent(new TestEvent("eventTest"));
 	}
 
 	/**
