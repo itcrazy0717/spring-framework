@@ -289,13 +289,13 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 		/**
 		 * {@link TxAdviceBeanDefinitionParser#doParse}
 		 */
-		// 这里取取，之前在TxAdviceBeanDefinitionParser解析的值
+		// 获取事务相关属性，之前在TxAdviceBeanDefinitionParser解析的值
 		TransactionAttributeSource tas = getTransactionAttributeSource();
 		// 根据方法与目标类，获取匹配的事务属性（传播行为、隔离级别）
 		final TransactionAttribute txAttr = (tas != null ? tas.getTransactionAttribute(method, targetClass) : null);
 		// 获取事务管理器
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
-		// 执行的方法
+		// 获取执行的方法
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
 
 		// 声明式事务
