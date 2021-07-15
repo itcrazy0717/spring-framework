@@ -308,6 +308,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
 
 	/**
+	 * 通过路径扫描候选的对象
 	 * Scan the class path for candidate components.
 	 * @param basePackage the package to check for annotated classes
 	 * @return a corresponding Set of autodetected bean definitions
@@ -425,6 +426,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
 					resolveBasePackage(basePackage) + '/' + this.resourcePattern;
 			// 将basePackage包下的类文件读取出来，封装成Resource对象
+			// 该函数主要作用根据配置的包路径直接读取出对应文件
 			Resource[] resources = getResourcePatternResolver().getResources(packageSearchPath);
 			boolean traceEnabled = logger.isTraceEnabled();
 			boolean debugEnabled = logger.isDebugEnabled();
@@ -441,7 +443,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 							ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
 							sbd.setResource(resource);
 							sbd.setSource(resource);
- 							// 判断是否是候选组件
+ 							// 判断是否是候选对象
 							if (isCandidateComponent(sbd)) {
 								if (debugEnabled) {
 									logger.debug("Identified candidate component class: " + resource);
@@ -507,7 +509,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		for (TypeFilter tf : this.includeFilters) {
             // 判断是否匹配默认的注解@Component
 			if (tf.match(metadataReader, getMetadataReaderFactory())) {
-				// 判断是否有@Conditional注解
+				// 判断是否匹配条件
 				return isConditionMatch(metadataReader);
 			}
 		}
@@ -525,6 +527,9 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			this.conditionEvaluator =
 					new ConditionEvaluator(getRegistry(), this.environment, this.resourcePatternResolver);
 		}
+		// 判断对象是否应该被跳过
+		// shouldSkip为false表示不应该被跳过，所以是符合条件的，如果返回true，则表示应该被跳过，从而不符合条件
+		// 检测对象上是否有@Conditional，也就是判断对象的加载是否含有其他条件
 		return !this.conditionEvaluator.shouldSkip(metadataReader.getAnnotationMetadata());
 	}
 
