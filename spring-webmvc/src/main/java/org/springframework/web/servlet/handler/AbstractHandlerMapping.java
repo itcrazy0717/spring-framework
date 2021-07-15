@@ -450,7 +450,8 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			handler = obtainApplicationContext().getBean(handlerName);
 		}
         // 获得HandlerExceutionChain对象
-		// 这里其实就是将HandlerMethod封装成HandlerExecutionChain对象 就是将controller封装成HandlerExecutionChain对象
+		// 这里其实就是将HandlerMethod封装成HandlerExecutionChain对象
+		// 将controller封装成HandlerExecutionChain对象
 		HandlerExecutionChain executionChain = getHandlerExecutionChain(handler, request);
 
 		if (logger.isTraceEnabled()) {
@@ -521,7 +522,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			// 若Interceptor类型为MappedInterceptor，则需进行路径匹配
 			if (interceptor instanceof MappedInterceptor) {
 				MappedInterceptor mappedInterceptor = (MappedInterceptor) interceptor;
-				// 进行路径匹配匹配
+				// 进行路径匹配
 				if (mappedInterceptor.matches(lookupPath, this.pathMatcher)) {
 					chain.addInterceptor(mappedInterceptor.getInterceptor());
 				}

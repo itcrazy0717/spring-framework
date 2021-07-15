@@ -1126,7 +1126,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 				// Actually invoke the handler.
 				// 调用处理器逻辑 真正的调用handler，并返回视图，这里会调用我们定义的Controller方法
-				// 由RequestMappingHandlerAdapter
+				// 由RequestMappingHandlerAdapter进行处理
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
