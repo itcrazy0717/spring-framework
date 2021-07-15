@@ -15,7 +15,7 @@ import org.springframework.web.spingmvc.pojo.OutputDTOTest;
  */
 @RestController
 @RequestMapping(value = "/mvc/test")
-public class MyTestController {
+public class MvcTestController {
 
 	/**
 	 * Controller上不带@RequestParam注解
