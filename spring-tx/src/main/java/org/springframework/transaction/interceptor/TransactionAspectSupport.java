@@ -284,7 +284,6 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	@Nullable
 	protected Object invokeWithinTransaction(Method method, @Nullable Class<?> targetClass,
 			final InvocationCallback invocation) throws Throwable {
-
 		// If the transaction attribute is null, the method is non-transactional.
 		/**
 		 * {@link TxAdviceBeanDefinitionParser#doParse}
