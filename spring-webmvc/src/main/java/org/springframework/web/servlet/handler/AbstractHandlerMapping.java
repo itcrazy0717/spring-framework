@@ -527,7 +527,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 					chain.addInterceptor(mappedInterceptor.getInterceptor());
 				}
 			}
-			//  不是MappedInterceptor则无需匹配，则直接添加到chain中
+			// 不是MappedInterceptor则无需匹配，则直接添加到chain中
 			else {
 				chain.addInterceptor(interceptor);
 			}
