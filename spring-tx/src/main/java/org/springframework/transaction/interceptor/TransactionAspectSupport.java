@@ -297,7 +297,6 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
 		// 获取执行的方法
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
-
 		// 声明式事务
 		if (txAttr == null || !(tm instanceof CallbackPreferringPlatformTransactionManager)) {
 			// Standard transaction demarcation with getTransaction and commit/rollback calls.
