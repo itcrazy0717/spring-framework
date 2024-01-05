@@ -155,6 +155,7 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 	@Nullable
 	protected Executor getDefaultExecutor(@Nullable BeanFactory beanFactory) {
 		Executor defaultExecutor = super.getDefaultExecutor(beanFactory);
+		// 如果存在默认执行器，则使用，否则创建一个SimpleAsyncTaskExecutor执行器
 		return (defaultExecutor != null ? defaultExecutor : new SimpleAsyncTaskExecutor());
 	}
 

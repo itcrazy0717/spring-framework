@@ -28,7 +28,6 @@ import java.util.function.Supplier;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -164,18 +163,23 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 		AsyncTaskExecutor executor = this.executors.get(method);
 		if (executor == null) {
 			Executor targetExecutor;
+			// 首先寻找是否指定了线程池执行器
 			String qualifier = getExecutorQualifier(method);
 			if (StringUtils.hasLength(qualifier)) {
+				// 存在就直接到IOC中获取相应的对象
 				targetExecutor = findQualifiedExecutor(this.beanFactory, qualifier);
 			}
 			else {
 				targetExecutor = this.defaultExecutor.get();
 			}
+			// 为空，则返回空
 			if (targetExecutor == null) {
 				return null;
 			}
+			// 类型转换
 			executor = (targetExecutor instanceof AsyncListenableTaskExecutor ?
 					(AsyncListenableTaskExecutor) targetExecutor : new TaskExecutorAdapter(targetExecutor));
+			// 做缓存
 			this.executors.put(method, executor);
 		}
 		return executor;
@@ -230,11 +234,13 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 				// Search for TaskExecutor bean... not plain Executor since that would
 				// match with ScheduledExecutorService as well, which is unusable for
 				// our purposes here. TaskExecutor is more clearly designed for it.
+				// 首先寻找是否有TaskExecutor类型的执行器
 				return beanFactory.getBean(TaskExecutor.class);
 			}
 			catch (NoUniqueBeanDefinitionException ex) {
 				logger.debug("Could not find unique TaskExecutor bean", ex);
 				try {
+					// 如果不唯一，则获取默认名称的执行器
 					return beanFactory.getBean(DEFAULT_TASK_EXECUTOR_BEAN_NAME, Executor.class);
 				}
 				catch (NoSuchBeanDefinitionException ex2) {
@@ -248,6 +254,7 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 			catch (NoSuchBeanDefinitionException ex) {
 				logger.debug("Could not find default TaskExecutor bean", ex);
 				try {
+					// 如果不存在，则继续尝试获取默认名换的执行器
 					return beanFactory.getBean(DEFAULT_TASK_EXECUTOR_BEAN_NAME, Executor.class);
 				}
 				catch (NoSuchBeanDefinitionException ex2) {
