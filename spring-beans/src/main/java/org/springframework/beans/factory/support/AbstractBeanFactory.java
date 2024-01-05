@@ -289,7 +289,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
-		// 从缓存或实例工厂中获取Bean对象
+		// 从缓存或实例工厂中获取Bean对象，注意此处的allowEarlyReference值为true，允许进行依赖解决
 		// Eagerly check singleton cache for manually registered singletons.
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
