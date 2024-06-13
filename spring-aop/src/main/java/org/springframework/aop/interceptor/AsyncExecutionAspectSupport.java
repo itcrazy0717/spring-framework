@@ -171,6 +171,7 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 				targetExecutor = findQualifiedExecutor(this.beanFactory, qualifier);
 			}
 			else {
+				// 从默认执行器中获取，具体可参考defaultExecutor初始化内容
 				targetExecutor = this.defaultExecutor.get();
 			}
 			// 为空，则返回空
