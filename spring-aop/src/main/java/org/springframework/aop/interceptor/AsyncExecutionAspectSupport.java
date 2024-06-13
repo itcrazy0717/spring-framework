@@ -164,6 +164,7 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 		if (executor == null) {
 			Executor targetExecutor;
 			// 首先寻找是否指定了线程池执行器
+			// 此处就是在@Async上设置的自定义线程池
 			String qualifier = getExecutorQualifier(method);
 			if (StringUtils.hasLength(qualifier)) {
 				// 存在就直接到IOC中获取相应的对象
