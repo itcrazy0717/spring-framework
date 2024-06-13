@@ -233,6 +233,7 @@ public class SimpleAsyncTaskExecutor extends CustomizableThreadCreator
 	 * @see java.lang.Thread#start()
 	 */
 	protected void doExecute(Runnable task) {
+		// 这里每次都会创建一个线程处理任务，存在性能问题
 		Thread thread = (this.threadFactory != null ? this.threadFactory.newThread(task) : createThread(task));
 		thread.start();
 	}
