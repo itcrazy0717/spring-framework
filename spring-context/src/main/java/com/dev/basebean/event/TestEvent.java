@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class TestEvent extends ApplicationEvent {
 
+	private static final long serialVersionUID = -4700426116729977584L;
+
 	public TestEvent(Object source) {
 		super(source);
 	}
