@@ -9,9 +9,7 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-
 	<context:component-scan base-package="org.springframework.web.demo"/>
-
 	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<!--加入此转换器，避免String类型数据json化-->
@@ -24,6 +22,4 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1048576"/>
 	</bean>
-
-
 </beans>
