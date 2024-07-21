@@ -7,7 +7,6 @@ import com.demo.basebean.lookupmethod.Car;
  * @date: 2019/5/15 22:44
  * @description:
  */
-
 public abstract class ShowCar {
 
 	public void showCarInfo() {

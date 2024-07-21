@@ -80,14 +80,11 @@ public class SpringMVCTest {
 	public void controllerBeanInputTest() throws ServletException, IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest("POST", "/mvc/test/input");
 		MockHttpServletResponse response = new MockHttpServletResponse();
-
 		String inputContent = "{\"age\":30,\"userName\":\"itcrazy0717\"}";
 		// 设置请求内容和contentType
 		request.setContent(inputContent.getBytes(StandardCharsets.UTF_8));
 		request.setContentType("application/json");
-
 		dispatcherServlet.service(request, response);
-
 		Assert.assertEquals("{\"age\":30,\"userName\":\"itcrazy0717\"}", response.getContentAsString());
 	}
 }

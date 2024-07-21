@@ -43,7 +43,6 @@ public class BeanLifeCycle implements BeanNameAware, BeanClassLoaderAware, BeanF
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		System.out.println("BeanFactoryAware#setBeanFactory 被调用");
-
 	}
 
 	@Override

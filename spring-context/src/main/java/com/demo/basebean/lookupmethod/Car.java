@@ -5,7 +5,6 @@ package com.demo.basebean.lookupmethod;
  * @date: 2019/5/15 22:40
  * @description: 演示looup-method
  */
-
 public interface Car {
 
 	/**

@@ -8,6 +8,7 @@ package org.springframework.web.demo.pojo;
 public class InputDTOTest {
 
 	private Integer age;
+
 	private String userName;
 
 	public Integer getAge() {

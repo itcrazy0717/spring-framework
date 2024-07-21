@@ -7,7 +7,6 @@ import com.demo.basebean.lookupmethod.Car;
  * @date: 2019/5/15 22:43
  * @description:
  */
-
 public class BENZ implements Car {
 
 	@Override
