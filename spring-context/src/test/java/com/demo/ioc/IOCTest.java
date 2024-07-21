@@ -60,7 +60,7 @@ public class IOCTest {
 		System.out.println("注解形式注入bean调试过程开始");
 		// 通过ClassPathXmlApplicationContext或者AnnotationConfigApplicationContext容器在进行依赖注入时都是一样的操作
 		// 不要有误解
-		ApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.ioc");
+		ApplicationContext context = new AnnotationConfigApplicationContext("com.demo.basebean.ioc");
 		// ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/dev/config/ioc/annotation_ioc.xml");
 
 		AnnotationIocBean annotationIocTestBean = context.getBean(AnnotationIocBean.class);
