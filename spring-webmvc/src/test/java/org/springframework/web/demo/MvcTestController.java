@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.demo.pojo.InputDTOTest;
-import org.springframework.web.demo.pojo.OutputDTOTest;
+import org.springframework.web.demo.pojo.InputDTO;
+import org.springframework.web.demo.pojo.OutputDTO;
 
 /**
  * @author: dengxin.chen
@@ -47,8 +47,8 @@ public class MvcTestController {
 	 * @return
 	 */
 	@PostMapping(value = "/bean")
-	public OutputDTOTest getBean() {
-		OutputDTOTest output = new OutputDTOTest();
+	public OutputDTO getBean() {
+		OutputDTO output = new OutputDTO();
 		output.setAge(30);
 		output.setUserName("itcrazy0717");
 		return output;
@@ -61,8 +61,8 @@ public class MvcTestController {
 	 * @return
 	 */
 	@PostMapping("/input")
-	public OutputDTOTest testInput(@RequestBody InputDTOTest input) {
-		OutputDTOTest output = new OutputDTOTest();
+	public OutputDTO testInput(@RequestBody InputDTO input) {
+		OutputDTO output = new OutputDTO();
 		output.setAge(input.getAge());
 		output.setUserName(input.getUserName());
 		return output;
