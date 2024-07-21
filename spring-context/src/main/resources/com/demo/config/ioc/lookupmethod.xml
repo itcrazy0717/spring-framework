@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<context:component-scan base-package="com.demo.*"/> 调试XmlValidationModeDetector#consumeCommentTokens函数-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--演示lookup-method标签-->
+
+	<bean id="benz" class="com.demo.basebean.lookupmethod.impl.BENZ"/>
+	<bean id="bmw" class="com.demo.basebean.lookupmethod.impl.BMW"/>
+	<bean id="showCar" class="com.demo.basebean.lookupmethod.impl.ShowCar">
+		<!--注意 如果用两个<lookup-method>标签对同一个方法指定其返回值以最后一个标签的返回值为准，这里会进行覆盖-->
+		<!--<lookup-method name="getCar" bean="benz"/>-->
+		<lookup-method name="getCar" bean="bmw"/>
+	</bean>
+</beans>

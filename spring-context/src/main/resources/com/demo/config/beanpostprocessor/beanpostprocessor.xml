@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<context:component-scan base-package="com.demo.*"/> 调试XmlValidationModeDetector#consumeCommentTokens函数-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!--BeanPostProcessor演示 使用ApplicationContext对象加载类必须使用另一个对象来进行演示-->
+	<bean id="beanPostProcessorBase" class="com.demo.basebean.beanpostprocessor.BeanPostProcessorBase"/>
+	<bean id="userDefinedBeanPostProcessor" class="com.demo.basebean.beanpostprocessor.UserDefinedBeanPostProcessor"/>
+</beans>

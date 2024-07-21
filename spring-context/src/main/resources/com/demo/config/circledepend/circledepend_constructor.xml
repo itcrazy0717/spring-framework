@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<context:component-scan base-package="com.demo.*"/> 调试XmlValidationModeDetector#consumeCommentTokens函数-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!--构造器注入循环依赖-->
+	<bean id="constructorCircleDependA" class="com.demo.basebean.circledepend.constructor.ConstructorCircleDependA">
+		<constructor-arg name="constructorCircleDependB" ref="constructorCircleDependB"/>
+	</bean>
+
+	<bean id="constructorCircleDependB" class="com.demo.basebean.circledepend.constructor.ConstructorCircleDependB">
+		<constructor-arg name="circleDependC" ref="constructorCircleDependC"/>
+	</bean>
+
+	<bean id="constructorCircleDependC" class="com.demo.basebean.circledepend.constructor.ConstructorCircleDependC">
+		<constructor-arg name="circleDependA" ref="constructorCircleDependA"/>
+	</bean>
+
+</beans>

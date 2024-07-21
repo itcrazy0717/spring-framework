@@ -11,6 +11,6 @@
 
 	<bean id="transactionManager" class="org.springframework.tests.transaction.CallCountingTransactionManager"/>
 
-	<bean id="transactionTestBean" class="com.dev.basebean.transaction.TransactionTestBean"/>
+	<bean id="transactionTestBean" class="com.demo.basebean.transaction.TransactionTestBean"/>
 
 </beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<context:component-scan base-package="com.demo.*"/> 调试XmlValidationModeDetector#consumeCommentTokens函数-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:com/demo/config/propertyoverrideconfigurer/propertyoverride.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="multiConditionBean" class="com.demo.basebean.ioc.IocTestBean"
+		  p:name="测试用例" p:gender="性别"/>
+</beans>

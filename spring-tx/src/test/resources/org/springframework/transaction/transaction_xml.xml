@@ -11,7 +11,7 @@
 	<!--<tx:annotation-driven proxy-target-class="true" order="0"/>  order="1"-->
 
 	<aop:config>
-		<aop:advisor pointcut="execution(* com.dev.basebean.transaction.TransactionTestBean.*(..))"
+		<aop:advisor pointcut="execution(* com.demo.basebean.transaction.TransactionTestBean.*(..))"
 					 advice-ref="txAdvice"/>
 	</aop:config>
 
@@ -32,6 +32,6 @@
 
 	<bean id="transactionManager" class="org.springframework.tests.transaction.CallCountingTransactionManager"/>
 
-	<bean id="transactionTestBean" class="com.dev.basebean.transaction.TransactionTestBean"/>
+	<bean id="transactionTestBean" class="com.demo.basebean.transaction.TransactionTestBean"/>
 
 </beans>
