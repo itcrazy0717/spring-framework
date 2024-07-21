@@ -31,23 +31,16 @@ public class IOCTest {
 	 */
 	@Test
 	public void xmlIOCTest() {
-
 		System.out.println("xml形式注入bean调试过程开始");
 		// classpath*:com/dev/config/*
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/demo/config/ioc/ioc.xml");
-
 		IocTestBean iocTestBean = (IocTestBean) context.getBean("iocTestBean");
-
 		Object value = ((ClassPathXmlApplicationContext) context).getBeanFactory().getBeanDefinition("iocTestBean").getAttribute("metaKey");
-
 		System.out.println("<meta> value=" + value);
-
 		System.out.println("class name:" + iocTestBean.getClass().getName());
-
 		System.out.println("name属性:" + iocTestBean.getName());
 		System.out.println("gender属性:" + iocTestBean.getGender());
 		System.out.println("placeHolderValue属性:" + iocTestBean.getPlaceHolderValue());
-
 		System.out.println("xml形式注入bean调试过程结束");
 	}
 
@@ -62,14 +55,10 @@ public class IOCTest {
 		// 不要有误解
 		ApplicationContext context = new AnnotationConfigApplicationContext("com.demo.basebean.ioc");
 		// ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/dev/config/ioc/annotation_ioc.xml");
-
 		AnnotationIocBean annotationIocTestBean = context.getBean(AnnotationIocBean.class);
-
 		annotationIocTestBean.sayHello();
 		annotationIocTestBean.annotationTest();
-
 		System.out.println(annotationIocTestBean.getClass());
-
 		System.out.println("注解形式注入bean调试过程结束");
 	}
 
@@ -141,16 +130,17 @@ public class IOCTest {
 	 */
 	@Test
 	public void beanPostProcessorTest() {
-
-	/*	ClassPathResource resource = new ClassPathResource("com/dev/config/beanpostprocessor/beanpostprocessor.xml");
-		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
-		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
-		reader.loadBeanDefinitions(resource);
-		// 单独使用UserDefinedBeanPostProcessor必须手动进行注册，然后就必须手动new一个对象，这种方式并不友好。
-		UserDefinedBeanPostProcessor definedBeanPostProcessor = new UserDefinedBeanPostProcessor();
-		factory.addBeanPostProcessor(definedBeanPostProcessor);
-		UserDefinedBeanPostProcessor test = (UserDefinedBeanPostProcessor) factory.getBean("userDefinedBeanPostProcessor");
-		test.showMsg();*/
+		/*
+		 ClassPathResource resource = new ClassPathResource("com/dev/config/beanpostprocessor/beanpostprocessor.xml");
+		 DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		 XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		 reader.loadBeanDefinitions(resource);
+		 // 单独使用UserDefinedBeanPostProcessor必须手动进行注册，然后就必须手动new一个对象，这种方式并不友好。
+		 UserDefinedBeanPostProcessor definedBeanPostProcessor = new UserDefinedBeanPostProcessor();
+		 factory.addBeanPostProcessor(definedBeanPostProcessor);
+		 UserDefinedBeanPostProcessor test = (UserDefinedBeanPostProcessor) factory.getBean("userDefinedBeanPostProcessor");
+		 test.showMsg();
+		 */
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/demo/config/beanpostprocessor/beanpostprocessor.xml");
 		BeanPostProcessorBase postProcessor = context.getBean(BeanPostProcessorBase.class);
 		System.out.println(postProcessor.getMsg());
@@ -193,9 +183,7 @@ public class IOCTest {
 	@Test
 	public void lookupMethodTest() {
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:com/demo/config/ioc/lookupmethod.xml");
-
 		ShowCar showCar = context.getBean(ShowCar.class);
-
 		showCar.showCarInfo();
 	}
 }

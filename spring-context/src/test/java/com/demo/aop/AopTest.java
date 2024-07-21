@@ -22,22 +22,15 @@ public class AopTest {
 	 */
 	@Test
 	public void xmlAopTest() {
-
 		System.out.println("基于xml配置形式Aop测试开始——CglibAopProxy代理");
-
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/demo/config/aop/cglibaopproxy_aop.xml");
-
 		UserDefinedCglibAopProxy cglibAopProxy = context.getBean(UserDefinedCglibAopProxy.class);
-
 		System.out.println("proxy type=" + cglibAopProxy.getClass());
-
 		cglibAopProxy.aopTest("aop test");
-
 		System.out.println();
 		System.out.println("age=" + cglibAopProxy.getAge() + " name=" + cglibAopProxy.getName());
 		System.out.println();
 		System.out.println("基于xml配置形式Aop测试结束——CglibAopProxy代理");
-
 	}
 
 	/**
@@ -45,18 +38,12 @@ public class AopTest {
 	 */
 	@Test
 	public void annotationAopTest() {
-
 		System.out.println("基于注解形式Aop测试开始");
-
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/demo/config/aop/annotation_aop.xml");
-
 		UserDefinedAopAnnotationBean userDefinedAopAnnotationBean = context.getBean(UserDefinedAopAnnotationBean.class);
-
 		userDefinedAopAnnotationBean.aopTest("annotation aop test");
-
 		System.out.println();
 		System.out.println("基于注解形式Aop测试结束");
-
 	}
 
 	/**
@@ -77,17 +64,11 @@ public class AopTest {
 	 */
 	@Test
 	public void xmlInterfaceAopTest() {
-
 		System.out.println("基于xml配置形式Aop测试开始——JdkDynamicAopProxy代理");
-
 		ApplicationContext context = new ClassPathXmlApplicationContext("com/demo/config/aop/jdkdynamicaopproxy_aop.xml");
-
 		JdkDynamicAopProxyInterface jdkDynamicAopProxyInterface = (JdkDynamicAopProxyInterface) context.getBean("aopInterface");
-
 		System.out.println("proxy type=" + jdkDynamicAopProxyInterface.getClass());
-
 		jdkDynamicAopProxyInterface.update();
-
 		System.out.println();
 		System.out.println("基于xml配置形式Aop测试开始——JdkDynamicAopProxy代理");
 	}
