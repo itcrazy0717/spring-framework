@@ -95,6 +95,17 @@ public class IOCTest {
 	}
 
 	/**
+	 * beanFactoryPostProcessor测试，在其他bean之前加载某个bean
+	 * 注意com.demo.basebean.beanfactory.TestBeanProcessor中bean的设置，如果bean中有注入的属性是不能成功的
+	 */
+	@Test
+	public void beanFactoryPostProcessorTest() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.demo.basebean");
+		AnnotationIocBean bean = context.getBean(AnnotationIocBean.class);
+		bean.annotationTest();
+	}
+
+	/**
 	 * 构造器循环依赖注入测试 会抛出BeanCreationException异常
 	 */
 	@Test(expected = BeanCreationException.class)

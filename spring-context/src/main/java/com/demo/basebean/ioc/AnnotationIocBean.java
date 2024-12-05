@@ -58,4 +58,8 @@ public class AnnotationIocBean {
 	public void annotationTest() {
 		annotationService.printMsg();
 	}
+
+	public AnnotationIocBean() {
+		System.out.println("构造函数---AnnotationIocBean()");
+	}
 }
