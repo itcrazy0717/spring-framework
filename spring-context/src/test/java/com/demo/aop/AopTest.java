@@ -51,7 +51,7 @@ public class AopTest {
 	 */
 	@Test
 	public void beanNameAutoProxyCreatorTest() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.dev.basebean.aop");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.demo.basebean.aop");
 		InterceptorTestService service = context.getBean(InterceptorTestService.class);
 		service.printMsg();
 	}
