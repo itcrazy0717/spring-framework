@@ -7,9 +7,9 @@ package com.demo.basebean.circledepend.setter;
  */
 public class SetterCircleDependB {
 
-	private SetterCircleDependC setterCircleDependC;
+	private SetterCircleDependA setterCircleDependA;
 
-	public void setSetterCircleDependC(SetterCircleDependC setterCircleDependC) {
-		this.setterCircleDependC = setterCircleDependC;
+	public void setSetterCircleDependA(SetterCircleDependA setterCircleDependA) {
+		this.setterCircleDependA = setterCircleDependA;
 	}
 }

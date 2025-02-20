@@ -11,9 +11,6 @@
 		  p:setterCircleDependB-ref="setterCircleDependB"/>
 
 	<bean id="setterCircleDependB" class="com.demo.basebean.circledepend.setter.SetterCircleDependB"
-		  p:setterCircleDependC-ref="setterCircleDependC"/>
-
-	<bean id="setterCircleDependC" class="com.demo.basebean.circledepend.setter.SetterCircleDependC"
 		  p:setterCircleDependA-ref="setterCircleDependA"/>
 
 </beans>
